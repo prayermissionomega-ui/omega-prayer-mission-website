@@ -1,1111 +1,1558 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Omega Prayer Mission Church Mbuya</title>
-
-    <meta name="description"
-          content="Omega Prayer Mission Church Mbuya - A place of prayer, worship, transformation and the Word of God.">
-
-    <meta name="theme-color" content="#080808">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-
-    <style>
-
-        /* ================================
-           GLOBAL
-        ================================= */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #080808;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        :root {
-            --gold: #d9a62e;
-            --gold-light: #ffd76a;
-            --gold-dark: #8f6714;
-            --black: #080808;
-            --dark: #111111;
-            --dark-2: #171717;
-            --white: #ffffff;
-            --muted: #bcbcbc;
-            --border: rgba(255, 215, 106, 0.18);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        section {
-            padding: 100px 7%;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        /* ================================
-           ANIMATED BACKGROUND
-        ================================= */
-
-        body::before {
-            content: "";
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: rgba(217, 166, 46, 0.08);
-            filter: blur(120px);
-            border-radius: 50%;
-            top: -200px;
-            left: -150px;
-            pointer-events: none;
-            z-index: -2;
-            animation: glowMove 12s infinite alternate ease-in-out;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            width: 450px;
-            height: 450px;
-            background: rgba(255, 215, 106, 0.06);
-            filter: blur(120px);
-            border-radius: 50%;
-            bottom: -200px;
-            right: -100px;
-            pointer-events: none;
-            z-index: -2;
-            animation: glowMove2 14s infinite alternate ease-in-out;
-        }
-
-        @keyframes glowMove {
-            from {
-                transform: translate(0,0);
-            }
-
-            to {
-                transform: translate(180px,120px);
-            }
-        }
-
-        @keyframes glowMove2 {
-            from {
-                transform: translate(0,0);
-            }
-
-            to {
-                transform: translate(-150px,-100px);
-            }
-        }
-
-        /* ================================
-           NAVIGATION
-        ================================= */
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            z-index: 1000;
-
-            background: rgba(8,8,8,0.88);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .nav-container {
-            max-width: 1250px;
-            height: 100%;
-            margin: auto;
-            padding: 0 30px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand img {
-            width: 55px;
-            height: 55px;
-            object-fit: contain;
-        }
-
-        .brand span {
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #ddd;
-            font-size: 13px;
-            font-weight: 500;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold-light);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .menu-btn {
-            display: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--gold);
-        }
-
-        /* ================================
-           HERO
-        ================================= */
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-
-            padding-top: 120px;
-
-            background:
-                radial-gradient(circle at center,
-                rgba(217,166,46,0.12),
-                transparent 40%);
-        }
-
-        .hero-content {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .hero-logo-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 35px;
-        }
-
-        .hero-logo {
-            width: 210px;
-            height: 210px;
-            object-fit: contain;
-
-            filter: drop-shadow(0 0 30px rgba(217,166,46,0.35));
-
-            animation:
-                logoFloat 5s ease-in-out infinite,
-                logoAppear 1.5s ease forwards;
-        }
-
-        @keyframes logoFloat {
-
-            0%,100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        @keyframes logoAppear {
-
-            from {
-                opacity: 0;
-                transform: scale(0.7);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .ring {
-            position: absolute;
-            border: 1px solid rgba(217,166,46,0.35);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-        }
-
-        .ring.one {
-            width: 250px;
-            height: 250px;
-            animation: spin 18s linear infinite;
-        }
-
-        .ring.two {
-            width: 290px;
-            height: 290px;
-            border-style: dashed;
-            animation: spinReverse 25s linear infinite;
-        }
-
-        @keyframes spin {
-
-            from {
-                transform: translate(-50%,-50%) rotate(0);
-            }
-
-            to {
-                transform: translate(-50%,-50%) rotate(360deg);
-            }
-        }
-
-        @keyframes spinReverse {
-
-            from {
-                transform: translate(-50%,-50%) rotate(360deg);
-            }
-
-            to {
-                transform: translate(-50%,-50%) rotate(0);
-            }
-        }
-
-        .hero-subtitle {
-            color: var(--gold-light);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 18px;
-        }
-
-        .hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(42px, 7vw, 82px);
-            line-height: 1.05;
-            margin-bottom: 25px;
-        }
-
-        .hero h1 span {
-            color: var(--gold-light);
-        }
-
-        .hero p {
-            max-width: 700px;
-            margin: auto;
-            color: var(--muted);
-            font-size: 16px;
-            line-height: 1.9;
-        }
-
-        .hero-buttons {
-            margin-top: 35px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 15px 28px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .btn-gold {
-            background: linear-gradient(
-                135deg,
-                var(--gold-light),
-                var(--gold)
-            );
-            color: #080808;
-            box-shadow: 0 10px 30px rgba(217,166,46,0.2);
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(217,166,46,0.35);
-        }
-
-        .btn-outline {
-            border: 1px solid var(--border);
-            color: white;
-        }
-
-        .btn-outline:hover {
-            border-color: var(--gold);
-            color: var(--gold-light);
-            transform: translateY(-4px);
-        }
-
-        /* ================================
-           SECTION HEADINGS
-        ================================= */
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-heading small {
-            color: var(--gold-light);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 11px;
-        }
-
-        .section-heading h2 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(30px,5vw,48px);
-            margin-top: 12px;
-        }
-
-        .section-heading p {
-            max-width: 650px;
-            margin: 15px auto 0;
-            color: var(--muted);
-            line-height: 1.8;
-        }
-
-        /* ================================
-           NEXT SERVICE
-        ================================= */
-
-        .next-service {
-            padding-top: 30px;
-        }
-
-        .service-box {
-            max-width: 950px;
-            margin: auto;
-
-            padding: 45px;
-
-            border: 1px solid var(--border);
-            border-radius: 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(255,255,255,0.06),
-                    rgba(255,255,255,0.015)
-                );
-
-            backdrop-filter: blur(15px);
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-
-            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
-        }
-
-        .service-label {
-            color: var(--gold-light);
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .service-box h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 28px;
-            margin: 10px 0;
-        }
-
-        .service-box p {
-            color: var(--muted);
-        }
-
-        .service-time {
-            text-align: right;
-        }
-
-        .service-time strong {
-            display: block;
-            font-family: 'Cinzel', serif;
-            font-size: 24px;
-            color: var(--gold-light);
-        }
-
-        /* ================================
-           PROGRAMME
-        ================================= */
-
-        .programme {
-            background:
-                linear-gradient(
-                    rgba(255,255,255,0.015),
-                    rgba(255,255,255,0.015)
-                );
-        }
-
-        .programme-grid {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 20px;
-        }
-
-        .day-card {
-            padding: 30px;
-            border-radius: 20px;
-
-            background: rgba(255,255,255,0.035);
-            border: 1px solid rgba(255,255,255,0.08);
-
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .day-card::before {
-            content: "";
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(217,166,46,0.08);
-            border-radius: 50%;
-            top: -50px;
-            right: -50px;
-            transition: 0.4s;
-        }
-
-        .day-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(217,166,46,0.45);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.35);
-        }
-
-        .day-card:hover::before {
-            transform: scale(2);
-        }
-
-        .day {
-            color: var(--gold-light);
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .event {
-            padding: 16px 0;
-            border-top: 1px solid rgba(255,255,255,0.07);
-        }
-
-        .event:first-of-type {
-            border-top: none;
-        }
-
-        .event-title {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .event-time {
-            color: #aaa;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        /* ================================
-           ABOUT
-        ================================= */
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 70px;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 42px;
-            margin-bottom: 25px;
-        }
-
-        .about-text h2 span {
-            color: var(--gold-light);
-        }
-
-        .about-text p {
-            color: var(--muted);
-            line-height: 1.9;
-            margin-bottom: 20px;
-        }
-
-        .values {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 15px;
-        }
-
-        .value {
-            padding: 30px;
-            background: rgba(255,255,255,0.035);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 18px;
-            transition: 0.3s;
-        }
-
-        .value:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
-
-        .value-icon {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-
-        .value h3 {
-            font-family: 'Cinzel', serif;
-            margin-bottom: 8px;
-        }
-
-        .value p {
-            color: #aaa;
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        /* ================================
-           LEADERSHIP
-        ================================= */
-
-        .leaders {
-            background: #0d0d0d;
-        }
-
-        .leaders-grid {
-            display: grid;
-            grid-template-columns: repeat(4,1fr);
-            gap: 20px;
-        }
-
-        .leader-card {
-            text-align: center;
-            padding: 35px 20px;
-
-            background: rgba(255,255,255,0.035);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 22px;
-
-            transition: 0.4s;
-        }
-
-        .leader-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(217,166,46,0.5);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-        }
-
-        .leader-circle {
-            width: 110px;
-            height: 110px;
-            margin: auto auto 20px;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border: 1px solid var(--gold);
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(217,166,46,0.18),
-                    rgba(255,255,255,0.02)
-                );
-
-            color: var(--gold-light);
-            font-family: 'Cinzel', serif;
-            font-size: 27px;
-        }
-
-        .leader-card h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 17px;
-            margin-bottom: 8px;
-        }
-
-        .leader-card p {
-            color: var(--gold-light);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* ================================
-           VISIT US
-        ================================= */
-
-        .visit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .contact-card {
-            padding: 40px;
-            border-radius: 25px;
-
-            background: rgba(255,255,255,0.035);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .contact-card h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 28px;
-            margin-bottom: 25px;
-        }
-
-        .contact-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .contact-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: rgba(217,166,46,0.1);
-            color: var(--gold-light);
-        }
-
-        .contact-item small {
-            display: block;
-            color: #888;
-            margin-bottom: 5px;
-        }
-
-        .contact-item p {
-            color: #ddd;
-        }
-
-        .map-box {
-            min-height: 350px;
-            border-radius: 25px;
-
-            border: 1px solid var(--border);
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(217,166,46,0.12),
-                    transparent 55%
-                ),
-                #111;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-        }
-
-        .map-content h3 {
-            font-family: 'Cinzel', serif;
-            margin-bottom: 10px;
-        }
-
-        .map-content p {
-            color: #aaa;
-            margin-bottom: 20px;
-        }
-
-        /* ================================
-           CTA
-        ================================= */
-
-        .cta {
-            text-align: center;
-            padding: 120px 7%;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(217,166,46,0.15),
-                    transparent 55%
-                );
-        }
-
-        .cta h2 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(35px,5vw,60px);
-            margin-bottom: 20px;
-        }
-
-        .cta p {
-            color: var(--muted);
-            max-width: 650px;
-            margin: auto;
-            line-height: 1.8;
-        }
-
-        /* ================================
-           FOOTER
-        ================================= */
-
-        footer {
-            padding: 50px 7% 30px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            background: #050505;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-
-            display: flex;
-            justify-content: space-between;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .footer-brand img {
-            width: 65px;
-        }
-
-        .footer-brand h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 16px;
-        }
-
-        .footer-brand p {
-            color: #888;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .footer-links a {
-            color: #aaa;
-            font-size: 12px;
-            transition: 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold-light);
-        }
-
-        .copyright {
-            max-width: 1200px;
-            margin: 35px auto 0;
-            padding-top: 20px;
-
-            border-top: 1px solid rgba(255,255,255,0.06);
-
-            color: #666;
-            font-size: 11px;
-            text-align: center;
-        }
-
-        /* ================================
-           SCROLL REVEAL
-        ================================= */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.9s ease,
-                        transform 0.9s ease;
-        }
-
-        .reveal.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ================================
-           MOBILE
-        ================================= */
-
-        @media(max-width:900px) {
-
-            .nav-links {
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100%;
-
-                display: none;
-                flex-direction: column;
-
-                background: rgba(8,8,8,0.98);
-                padding: 25px;
-
-                text-align: center;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-btn {
-                display: block;
-            }
-
-            .programme-grid {
-                grid-template-columns: repeat(2,1fr);
-            }
-
-            .leaders-grid {
-                grid-template-columns: repeat(2,1fr);
-            }
-
-            .about-grid,
-            .visit-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .service-box {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .service-time {
-                text-align: center;
-            }
-        }
-
-        @media(max-width:600px) {
-
-            section {
-                padding: 80px 6%;
-            }
-
-            .brand span {
-                font-size: 11px;
-            }
-
-            .hero-logo {
-                width: 160px;
-                height: 160px;
-            }
-
-            .ring.one {
-                width: 195px;
-                height: 195px;
-            }
-
-            .ring.two {
-                width: 225px;
-                height: 225px;
-            }
-
-            .hero h1 {
-                font-size: 42px;
-            }
-
-            .hero p {
-                font-size: 14px;
-            }
-
-            .programme-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .leaders-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .values {
-                grid-template-columns: 1fr;
-            }
-
-            .service-box {
-                padding: 30px 20px;
-            }
-
-            .contact-card {
-                padding: 30px 20px;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-
-            .footer-brand {
-                flex-direction: column;
-            }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Omega Prayer Mission Church Mbuya</title>
+
+<meta name="description"
+content="Omega Prayer Mission Church Mbuya - A place of prayer, restoration, worship, fellowship and transformation.">
+
+<meta name="theme-color" content="#155EEF">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root{
+    --blue:#155EEF;
+    --dark-blue:#07245C;
+    --deep-blue:#041735;
+    --blue-light:#EEF6FF;
+
+    --gold:#F5B942;
+    --gold-light:#FFE29A;
+    --gold-dark:#C98C12;
+
+    --white:#FFFFFF;
+    --black:#08111F;
+
+    --text:#14213D;
+    --muted:#64748B;
+    --border:#E5EAF2;
+
+    --success:#16A34A;
+    --danger:#DC2626;
+
+    --shadow:0 18px 50px rgba(7,36,92,.12);
+    --shadow-heavy:0 30px 80px rgba(4,23,53,.25);
+
+    --radius:24px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"DM Sans",sans-serif;
+    background:#fff;
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.container{
+    width:min(1160px,92%);
+    margin:auto;
+}
+
+section{
+    padding:100px 0;
+    position:relative;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-title .eyebrow{
+    color:var(--blue);
+    font-size:.8rem;
+    font-weight:800;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+}
+
+.section-title h2{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(2rem,4vw,3.4rem);
+    line-height:1.1;
+    color:var(--dark-blue);
+}
+
+.section-title p{
+    max-width:680px;
+    margin:16px auto 0;
+    color:var(--muted);
+    line-height:1.8;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(35px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-14px);
+    }
+}
+
+@keyframes pulse{
+    0%{
+        box-shadow:0 0 0 0 rgba(245,185,66,.45);
+    }
+    70%{
+        box-shadow:0 0 0 18px rgba(245,185,66,0);
+    }
+    100%{
+        box-shadow:0 0 0 0 rgba(245,185,66,0);
+    }
+}
+
+@keyframes shine{
+    0%{
+        transform:translateX(-120%);
+    }
+    100%{
+        transform:translateX(120%);
+    }
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    background:var(--deep-blue);
+    color:white;
+    font-size:.85rem;
+}
+
+.topbar-inner{
+    min-height:42px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.topbar span{
+    opacity:.9;
+}
+
+.topbar-right{
+    display:flex;
+    gap:20px;
+}
+
+.topbar a:hover{
+    color:var(--gold);
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(229,234,242,.8);
+}
+
+.nav{
+    min-height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.brand img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:0 5px 20px rgba(21,94,239,.15);
+}
+
+.brand-text strong{
+    display:block;
+    color:var(--dark-blue);
+    font-size:1rem;
+}
+
+.brand-text span{
+    color:var(--blue);
+    font-size:.72rem;
+    font-weight:700;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:27px;
+}
+
+.nav-links a{
+    font-size:.9rem;
+    font-weight:600;
+    color:#263754;
+    position:relative;
+}
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+    width:0;
+    height:2px;
+    background:var(--gold);
+    transition:.3s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+.nav-links a:hover{
+    color:var(--blue);
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:transparent;
+    font-size:1.8rem;
+    color:var(--dark-blue);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+    border:0;
+    border-radius:12px;
+    padding:14px 21px;
+    font-weight:800;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    gap:9px;
+    transition:.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:60%;
+    height:100%;
+    background:rgba(255,255,255,.2);
+    transform:skewX(-20deg);
+    transition:.5s;
+}
+
+.btn:hover::before{
+    left:130%;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn.blue{
+    background:var(--blue);
+    color:white;
+    box-shadow:0 10px 25px rgba(21,94,239,.22);
+}
+
+.btn.blue:hover{
+    background:#0B4DD4;
+}
+
+.btn.gold{
+    background:var(--gold);
+    color:var(--deep-blue);
+    box-shadow:0 10px 25px rgba(245,185,66,.25);
+}
+
+.btn.gold:hover{
+    background:#FFD36A;
+}
+
+.btn.outline{
+    background:white;
+    color:var(--dark-blue);
+    border:1px solid var(--border);
+}
+
+.btn.outline:hover{
+    border-color:var(--blue);
+    color:var(--blue);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:calc(100vh - 124px);
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            105deg,
+            rgba(4,23,53,.96) 0%,
+            rgba(7,36,92,.85) 45%,
+            rgba(21,94,239,.58) 100%
+        ),
+        url("church-exterior.jpg") center/cover no-repeat;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    background:rgba(245,185,66,.12);
+    top:-160px;
+    right:-120px;
+    animation:float 6s ease-in-out infinite;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:rgba(21,94,239,.25);
+    bottom:-150px;
+    left:-100px;
+    animation:float 7s ease-in-out infinite reverse;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    color:white;
+    max-width:850px;
+    animation:fadeUp 1s ease forwards;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 15px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:100px;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:25px;
+}
+
+.hero-badge span{
+    width:8px;
+    height:8px;
+    background:var(--gold);
+    border-radius:50%;
+    animation:pulse 2s infinite;
+}
+
+.hero h1{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(3rem,7vw,6.4rem);
+    line-height:.98;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:var(--gold);
+}
+
+.hero p{
+    max-width:700px;
+    color:rgba(255,255,255,.82);
+    font-size:1.08rem;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+.hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.hero .btn.outline{
+    background:rgba(255,255,255,.1);
+    color:white;
+    border-color:rgba(255,255,255,.35);
+    backdrop-filter:blur(10px);
+}
+
+.hero-scroll{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    color:rgba(255,255,255,.7);
+    font-size:.75rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    z-index:3;
+    animation:float 2s infinite;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.about-logo{
+    min-height:500px;
+    border-radius:35px;
+    background:
+        radial-gradient(circle at 30% 20%,rgba(245,185,66,.35),transparent 35%),
+        linear-gradient(145deg,var(--dark-blue),var(--blue));
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow-heavy);
+}
+
+.about-logo::before{
+    content:"";
+    position:absolute;
+    width:330px;
+    height:330px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:50%;
+}
+
+.about-logo::after{
+    content:"";
+    position:absolute;
+    width:450px;
+    height:450px;
+    border:1px solid rgba(245,185,66,.2);
+    border-radius:50%;
+}
+
+.about-logo img{
+    width:230px;
+    height:230px;
+    object-fit:contain;
+    border-radius:50%;
+    position:relative;
+    z-index:2;
+    animation:float 5s ease-in-out infinite;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+.about-copy h2{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(2rem,4vw,3.3rem);
+    color:var(--dark-blue);
+    margin-bottom:20px;
+}
+
+.about-copy p{
+    color:var(--muted);
+    line-height:1.85;
+    margin-bottom:18px;
+}
+
+.values{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-top:30px;
+}
+
+.value{
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:white;
+    transition:.3s;
+}
+
+.value:hover{
+    transform:translateY(-5px);
+    border-color:var(--gold);
+    box-shadow:var(--shadow);
+}
+
+.value strong{
+    display:block;
+    color:var(--dark-blue);
+    margin-bottom:5px;
+}
+
+.value span{
+    font-size:.86rem;
+    color:var(--muted);
+}
+
+/* =========================================================
+   LEADERSHIP
+========================================================= */
+
+.leadership{
+    background:var(--blue-light);
+}
+
+.leaders{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.leader{
+    background:white;
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid rgba(21,94,239,.08);
+    box-shadow:0 10px 35px rgba(7,36,92,.07);
+    transition:.4s;
+}
+
+.leader:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+}
+
+.leader-img{
+    aspect-ratio:1/1;
+    padding:25px;
+    background:
+        linear-gradient(145deg,#F8FBFF,#E9F2FF);
+}
+
+.leader-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:18px;
+}
+
+.leader-info{
+    padding:22px;
+    text-align:center;
+}
+
+.leader-info h3{
+    color:var(--dark-blue);
+    font-family:"Playfair Display",serif;
+    font-size:1.2rem;
+}
+
+.leader-info p{
+    color:var(--blue);
+    font-size:.82rem;
+    margin-top:6px;
+    font-weight:700;
+}
+
+/* =========================================================
+   PROGRAMME
+========================================================= */
+
+.programme-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.day-card{
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    background:white;
+    transition:.35s;
+}
+
+.day-card:hover{
+    transform:translateY(-7px);
+    box-shadow:var(--shadow);
+    border-color:rgba(21,94,239,.2);
+}
+
+.day-header{
+    background:var(--dark-blue);
+    color:white;
+    padding:17px 20px;
+    font-weight:800;
+    display:flex;
+    justify-content:space-between;
+}
+
+.day-header span{
+    color:var(--gold);
+}
+
+.day-body{
+    padding:20px;
+}
+
+.event{
+    padding:14px 0;
+    border-bottom:1px solid #EDF0F5;
+}
+
+.event:last-child{
+    border-bottom:0;
+}
+
+.event strong{
+    display:block;
+    font-size:.9rem;
+    color:var(--text);
+}
+
+.event span{
+    color:var(--muted);
+    font-size:.8rem;
+    display:block;
+    margin-top:4px;
+}
+
+/* =========================================================
+   CONNECT
+========================================================= */
+
+.connect{
+    background:
+        linear-gradient(
+            135deg,
+            var(--deep-blue),
+            var(--dark-blue)
+        );
+    color:white;
+}
+
+.connect .section-title h2{
+    color:white;
+}
+
+.connect .section-title p{
+    color:rgba(255,255,255,.7);
+}
+
+.connect-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.connect-card{
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:25px;
+    padding:30px 23px;
+    transition:.4s;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.connect-card::before{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:rgba(245,185,66,.08);
+    top:-35px;
+    right:-35px;
+    transition:.4s;
+}
+
+.connect-card:hover{
+    transform:translateY(-10px);
+    background:rgba(255,255,255,.11);
+    border-color:rgba(245,185,66,.4);
+}
+
+.connect-card:hover::before{
+    transform:scale(2.5);
+}
+
+.connect-icon{
+    width:58px;
+    height:58px;
+    border-radius:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.7rem;
+    background:rgba(245,185,66,.15);
+    color:var(--gold);
+    margin-bottom:22px;
+    position:relative;
+    z-index:1;
+}
+
+.connect-card h3{
+    font-size:1.1rem;
+    margin-bottom:10px;
+    position:relative;
+}
+
+.connect-card p{
+    color:rgba(255,255,255,.68);
+    font-size:.85rem;
+    line-height:1.7;
+    min-height:72px;
+}
+
+.card-link{
+    color:var(--gold);
+    font-size:.82rem;
+    font-weight:800;
+    margin-top:15px;
+    display:inline-block;
+}
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+.whatsapp-section{
+    padding:70px 0;
+}
+
+.whatsapp-box{
+    background:linear-gradient(135deg,#0B8F42,#16A34A);
+    color:white;
+    padding:45px;
+    border-radius:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(22,163,74,.2);
+}
+
+.whatsapp-box::after{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:rgba(255,255,255,.07);
+    right:-70px;
+    top:-100px;
+}
+
+.whatsapp-box h2{
+    font-family:"Playfair Display",serif;
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+.whatsapp-box p{
+    color:rgba(255,255,255,.8);
+}
+
+/* =========================================================
+   VISIT
+========================================================= */
+
+.visit{
+    background:#F8FAFD;
+}
+
+.visit-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.visit-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 10px 35px rgba(7,36,92,.05);
+}
+
+.visit-card h3{
+    color:var(--dark-blue);
+    font-family:"Playfair Display",serif;
+    font-size:1.7rem;
+    margin-bottom:20px;
+}
+
+.contact-line{
+    display:flex;
+    gap:15px;
+    margin:18px 0;
+}
+
+.contact-icon{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    background:var(--blue-light);
+    color:var(--blue);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.contact-line strong{
+    display:block;
+    font-size:.9rem;
+    margin-bottom:3px;
+}
+
+.contact-line span,
+.contact-line a{
+    color:var(--muted);
+    font-size:.88rem;
+}
+
+.direction-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:25px;
+}
+
+.location-status{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:.82rem;
+    min-height:20px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:var(--deep-blue);
+    color:white;
+    padding:60px 0 25px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:45px;
+}
+
+.footer-brand{
+    display:flex;
+    gap:14px;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.footer-brand img{
+    width:58px;
+    height:58px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+.footer h3{
+    margin-bottom:18px;
+    color:var(--gold);
+}
+
+.footer p{
+    color:rgba(255,255,255,.62);
+    line-height:1.8;
+    font-size:.87rem;
+}
+
+.footer-links{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.footer-links a{
+    color:rgba(255,255,255,.68);
+    font-size:.88rem;
+    transition:.2s;
+}
+
+.footer-links a:hover{
+    color:var(--gold);
+    transform:translateX(4px);
+}
+
+.copyright{
+    border-top:1px solid rgba(255,255,255,.1);
+    padding-top:22px;
+    color:rgba(255,255,255,.45);
+    font-size:.78rem;
+    text-align:center;
+}
+
+/* =========================================================
+   FLOATING WHATSAPP
+========================================================= */
+
+.float-whatsapp{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    background:#25D366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.8rem;
+    z-index:900;
+    box-shadow:0 12px 30px rgba(0,0,0,.2);
+    animation:pulse 2.4s infinite;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(2,10,25,.78);
+    backdrop-filter:blur(8px);
+    z-index:2000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+    animation:fadeIn .25s ease;
+}
+
+.modal-box{
+    width:min(620px,100%);
+    max-height:92vh;
+    overflow-y:auto;
+    background:white;
+    border-radius:28px;
+    box-shadow:var(--shadow-heavy);
+    position:relative;
+    animation:fadeUp .35s ease;
+}
+
+.modal-top{
+    background:
+        linear-gradient(
+            135deg,
+            var(--deep-blue),
+            var(--blue)
+        );
+    color:white;
+    padding:28px 30px;
+    position:relative;
+}
+
+.modal-top .modal-icon{
+    width:52px;
+    height:52px;
+    background:rgba(245,185,66,.16);
+    color:var(--gold);
+    border-radius:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:1.5rem;
+    margin-bottom:15px;
+}
+
+.modal-top h2{
+    font-family:"Playfair Display",serif;
+    font-size:1.8rem;
+}
+
+.modal-top p{
+    color:rgba(255,255,255,.7);
+    font-size:.82rem;
+    margin-top:5px;
+}
+
+.close-modal{
+    position:absolute;
+    top:18px;
+    right:20px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.1);
+    color:white;
+    font-size:1.4rem;
+}
+
+.close-modal:hover{
+    background:var(--gold);
+    color:var(--deep-blue);
+}
+
+.modal-body{
+    padding:30px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-size:.82rem;
+    font-weight:800;
+    color:var(--dark-blue);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    border:1px solid #DCE3ED;
+    border-radius:12px;
+    padding:13px 14px;
+    outline:none;
+    background:#FAFCFF;
+    color:var(--text);
+    transition:.25s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(21,94,239,.08);
+    background:white;
+}
+
+.form-group textarea{
+    min-height:130px;
+    resize:vertical;
+}
+
+.form-submit{
+    width:100%;
+    margin-top:5px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:30px;
+    transform:translate(-50%,30px);
+    background:var(--deep-blue);
+    color:white;
+    padding:15px 22px;
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    opacity:0;
+    pointer-events:none;
+    transition:.35s;
+    z-index:3000;
+    font-size:.86rem;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .leaders{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .programme-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .connect-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:800px){
+
+    .topbar{
+        display:none;
+    }
+
+    .nav{
+        min-height:72px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav-links{
+        position:absolute;
+        top:72px;
+        left:0;
+        right:0;
+        background:white;
+        display:none;
+        flex-direction:column;
+        padding:20px;
+        box-shadow:0 15px 30px rgba(0,0,0,.08);
+    }
+
+    .nav-links.active{
+        display:flex;
+        animation:fadeIn .25s ease;
+    }
+
+    .about-grid,
+    .visit-grid,
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .about-logo{
+        min-height:380px;
+    }
+
+    .footer-grid{
+        gap:30px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    section{
+        padding:75px 0;
+    }
+
+    .brand-text span{
+        display:none;
+    }
+
+    .brand-text strong{
+        font-size:.86rem;
+    }
+
+    .hero{
+        min-height:calc(100vh - 72px);
+    }
+
+    .hero h1{
+        font-size:3.1rem;
+    }
+
+    .hero p{
+        font-size:.95rem;
+    }
+
+    .hero-actions{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .hero-actions .btn{
+        width:100%;
+    }
+
+    .leaders,
+    .programme-grid,
+    .connect-grid,
+    .values{
+        grid-template-columns:1fr;
+    }
+
+    .whatsapp-box{
+        padding:30px 25px;
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .visit-card{
+        padding:25px;
+    }
+
+    .modal-body{
+        padding:22px;
+    }
+
+    .modal-top{
+        padding:24px;
+    }
+
+}
+
+/* Reduced motion accessibility */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- =================================
-     NAVIGATION
-================================== -->
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
 
-<nav>
+<div class="topbar">
 
-    <div class="nav-container">
+    <div class="container topbar-inner">
 
-        <a href="#home" class="brand">
+        <span>
+            Omega Prayer Mission Church Mbuya
+        </span>
 
-            <img src="church-logo.jpeg"
-                 alt="Omega Prayer Mission Church Logo">
+        <div class="topbar-right">
 
-            <span>
-                OMEGA PRAYER MISSION
-            </span>
+            <a href="tel:+256772512884">
+                +256 772 512884
+            </a>
 
-        </a>
+            <a href="mailto:prayermissionomega@gmail.com">
+                prayermissionomega@gmail.com
+            </a>
 
-        <div class="menu-btn" onclick="toggleMenu()">
-            ☰
         </div>
-
-        <ul class="nav-links" id="navLinks">
-
-            <li>
-                <a href="#home">Home</a>
-            </li>
-
-            <li>
-                <a href="#programme">Programme</a>
-            </li>
-
-            <li>
-                <a href="#about">About</a>
-            </li>
-
-            <li>
-                <a href="#leadership">Leadership</a>
-            </li>
-
-            <li>
-                <a href="#visit">Visit Us</a>
-            </li>
-
-        </ul>
 
     </div>
 
-</nav>
+</div>
 
 
-<!-- =================================
-     HERO
-================================== -->
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
 
-<section class="hero" id="home">
+<header>
 
-    <div class="hero-content">
+    <div class="container nav">
 
-        <div class="hero-logo-wrapper">
-
-            <div class="ring one"></div>
-            <div class="ring two"></div>
+        <a href="#home" class="brand">
 
             <img
                 src="church-logo.jpeg"
-                alt="Omega Prayer Mission Church Mbuya"
-                class="hero-logo"
+                alt="Omega Prayer Mission Church Mbuya logo"
             >
 
+            <div class="brand-text">
+
+                <strong>
+                    Omega Prayer Mission
+                </strong>
+
+                <span>
+                    CHURCH MBUYA
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <button
+            class="menu-btn"
+            onclick="toggleMenu()"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
+
+
+        <nav class="nav-links" id="navLinks">
+
+            <a href="#home" onclick="closeMenu()">Home</a>
+
+            <a href="#about" onclick="closeMenu()">About</a>
+
+            <a href="#leadership" onclick="closeMenu()">Leadership</a>
+
+            <a href="#programme" onclick="closeMenu()">Programme</a>
+
+            <a href="#connect" onclick="closeMenu()">Connect</a>
+
+            <a href="#visit" onclick="closeMenu()">Visit Us</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="home">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                <span></span>
+                A PLACE OF PRAYER & RESTORATION
+            </div>
+
+            <h1>
+                Encounter God.<br>
+                <span>Experience Restoration.</span>
+            </h1>
+
+            <p>
+                Welcome to Omega Prayer Mission Church Mbuya,
+                a family committed to prayer, worship, the Word of God,
+                fellowship and transformation.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#connect" class="btn gold">
+                    Connect With Us →
+                </a>
+
+                <a href="#programme" class="btn outline">
+                    View Programme
+                </a>
+
+            </div>
+
         </div>
 
-        <div class="hero-subtitle">
-            Omega Prayer Mission Church Mbuya
-        </div>
+    </div>
 
-        <h1>
-            Faith.
-            <span>Prayer.</span>
-            Transformation.
-        </h1>
+    <div class="hero-scroll">
+        Scroll to explore
+    </div>
 
-        <p>
-            Welcome to Omega Prayer Mission Church Mbuya,
-            a place where people gather to seek God,
-            grow in His Word, worship together and walk
-            in His purpose.
-        </p>
+</section>
 
-        <div class="hero-buttons">
 
-            <a href="#programme" class="btn btn-gold">
-                View Programme
-            </a>
+<!-- =========================================================
+     ABOUT
+========================================================= -->
 
-            <a href="#visit" class="btn btn-outline">
-                Plan Your Visit
-            </a>
+<section id="about">
+
+    <div class="container">
+
+        <div class="about-grid reveal">
+
+            <div class="about-logo">
+
+                <img
+                    src="church-logo.jpeg"
+                    alt="Omega Prayer Mission Church logo"
+                >
+
+            </div>
+
+
+            <div class="about-copy">
+
+                <div class="section-title"
+                     style="text-align:left;margin-bottom:25px;">
+
+                    <div class="eyebrow">
+                        WHO WE ARE
+                    </div>
+
+                    <h2>
+                        A family built around faith and prayer.
+                    </h2>
+
+                </div>
+
+                <p>
+                    Omega Prayer Mission Church Mbuya exists to create
+                    an atmosphere where people can encounter God,
+                    grow in faith and experience restoration.
+                </p>
+
+                <p>
+                    Through prayer, worship, Bible teaching,
+                    counselling and fellowship, we seek to raise
+                    people who live purposefully and impact their
+                    communities for Christ.
+                </p>
+
+
+                <div class="values">
+
+                    <div class="value">
+                        <strong>Prayer</strong>
+                        <span>
+                            Building a strong relationship with God.
+                        </span>
+                    </div>
+
+                    <div class="value">
+                        <strong>Restoration</strong>
+                        <span>
+                            Helping lives experience renewal.
+                        </span>
+                    </div>
+
+                    <div class="value">
+                        <strong>Community</strong>
+                        <span>
+                            Growing together as one family.
+                        </span>
+                    </div>
+
+                    <div class="value">
+                        <strong>Purpose</strong>
+                        <span>
+                            Equipping people to fulfil their calling.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -1114,41 +1561,469 @@
 </section>
 
 
-<!-- =================================
-     NEXT SERVICE
-================================== -->
+<!-- =========================================================
+     LEADERSHIP
+========================================================= -->
 
-<section class="next-service">
+<section class="leadership" id="leadership">
 
     <div class="container">
 
-        <div class="service-box reveal">
+        <div class="section-title reveal">
 
-            <div>
+            <div class="eyebrow">
+                CHURCH LEADERSHIP
+            </div>
 
-                <div class="service-label">
-                    Weekly Gathering
+            <h2>
+                Our Spiritual Leaders
+            </h2>
+
+            <p>
+                Serving the church with faith, prayer,
+                wisdom and dedication.
+            </p>
+
+        </div>
+
+
+        <div class="leaders">
+
+            <div class="leader reveal">
+
+                <div class="leader-img">
+
+                    <img
+                        src="pastor-livingstone.jpg"
+                        data-placeholder="church-logo.jpeg"
+                        alt="Dr. Apostle Livingstone Wagaba"
+                    >
+
                 </div>
 
-                <h3>
-                    Prayer Altar
-                </h3>
+                <div class="leader-info">
 
-                <p>
-                    Join us for an evening of prayer,
-                    seeking God's presence and intercession.
-                </p>
+                    <h3>
+                        Dr. Apostle Livingstone Wagaba
+                    </h3>
+
+                    <p>
+                        Lead Apostle
+                    </p>
+
+                </div>
 
             </div>
 
-            <div class="service-time">
 
-                <strong>
+            <div class="leader reveal">
+
+                <div class="leader-img">
+
+                    <img
+                        src="pastor-betty.jpg"
+                        data-placeholder="church-logo.jpeg"
+                        alt="Pastor Betty Wagaba"
+                    >
+
+                </div>
+
+                <div class="leader-info">
+
+                    <h3>
+                        Pastor Betty Wagaba
+                    </h3>
+
+                    <p>
+                        Pastor
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="leader reveal">
+
+                <div class="leader-img">
+
+                    <img
+                        src="pastor-emmanuel.jpg"
+                        data-placeholder="church-logo.jpeg"
+                        alt="Pastor Emmanuel Wagaba"
+                    >
+
+                </div>
+
+                <div class="leader-info">
+
+                    <h3>
+                        Pastor Emmanuel Wagaba
+                    </h3>
+
+                    <p>
+                        Pastor
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="leader reveal">
+
+                <div class="leader-img">
+
+                    <img
+                        src="pastor-henry.jpg"
+                        data-placeholder="church-logo.jpeg"
+                        alt="Pastor Henry Nsimbe"
+                    >
+
+                </div>
+
+                <div class="leader-info">
+
+                    <h3>
+                        Pastor Henry Nsimbe
+                    </h3>
+
+                    <p>
+                        Pastor
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WEEKLY PROGRAMME
+========================================================= -->
+
+<section id="programme">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <div class="eyebrow">
+                WEEKLY PROGRAMME
+            </div>
+
+            <h2>
+                Join Us Throughout the Week
+            </h2>
+
+            <p>
+                There is always an opportunity to pray,
+                learn, worship and fellowship.
+            </p>
+
+        </div>
+
+
+        <div class="programme-grid">
+
+
+            <div class="day-card reveal">
+
+                <div class="day-header">
+                    Monday
+                    <span>01</span>
+                </div>
+
+                <div class="day-body">
+
+                    <div class="event">
+                        <strong>Bible Study</strong>
+                        <span>5:00 PM – 8:00 PM</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-card reveal">
+
+                <div class="day-header">
+                    Tuesday
+                    <span>02</span>
+                </div>
+
+                <div class="day-body">
+
+                    <div class="event">
+                        <strong>Bible Study</strong>
+                        <span>5:00 PM – 8:00 PM</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-card reveal">
+
+                <div class="day-header">
+                    Wednesday
+                    <span>03</span>
+                </div>
+
+                <div class="day-body">
+
+                    <div class="event">
+                        <strong>Counselling</strong>
+                        <span>10:00 AM – 3:00 PM</span>
+                    </div>
+
+                    <div class="event">
+                        <strong>Bible Study</strong>
+                        <span>5:00 PM – 8:00 PM</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-card reveal">
+
+                <div class="day-header">
+                    Thursday
+                    <span>04</span>
+                </div>
+
+                <div class="day-body">
+
+                    <div class="event">
+                        <strong>Ministering Groups Practice</strong>
+                        <span>5:00 PM – 8:00 PM</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-card reveal">
+
+                <div class="day-header">
                     Friday
-                </strong>
+                    <span>05</span>
+                </div>
 
-                <span>
-                    5:00 PM – 9:00 PM
+                <div class="day-body">
+
+                    <div class="event">
+                        <strong>Prayer Altar</strong>
+                        <span>5:00 PM – 9:00 PM</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-card reveal">
+
+                <div class="day-header">
+                    Saturday
+                    <span>06</span>
+                </div>
+
+                <div class="day-body">
+
+                    <div class="event">
+                        <strong>Ministering Groups Practice</strong>
+                        <span>Schedule</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-card reveal">
+
+                <div class="day-header">
+                    Sunday
+                    <span>07</span>
+                </div>
+
+                <div class="day-body">
+
+                    <div class="event">
+                        <strong>Morning Service</strong>
+                        <span>8:00 AM – 9:30 AM</span>
+                    </div>
+
+                    <div class="event">
+                        <strong>Breaking Chains</strong>
+                        <span>9:30 AM – 10:00 AM</span>
+                    </div>
+
+                    <div class="event">
+                        <strong>Second Service</strong>
+                        <span>10:00 AM – 1:00 PM</span>
+                    </div>
+
+                    <div class="event">
+                        <strong>Mighty Youth Service</strong>
+                        <span>4:00 PM – 6:00 PM</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONNECT
+========================================================= -->
+
+<section class="connect" id="connect">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <div class="eyebrow" style="color:var(--gold);">
+                CONNECT WITH US
+            </div>
+
+            <h2>
+                Take Your Next Step
+            </h2>
+
+            <p>
+                Choose an option below. Your form will open
+                privately when you select what you need.
+            </p>
+
+        </div>
+
+
+        <div class="connect-grid">
+
+
+            <!-- PRAYER -->
+
+            <div
+                class="connect-card reveal"
+                onclick="openModal('prayer')"
+            >
+
+                <div class="connect-icon">
+                    🙏
+                </div>
+
+                <h3>
+                    Prayer Request
+                </h3>
+
+                <p>
+                    Share what you are trusting God for
+                    and let our prayer team stand with you.
+                </p>
+
+                <span class="card-link">
+                    Submit Request →
+                </span>
+
+            </div>
+
+
+            <!-- TESTIMONY -->
+
+            <div
+                class="connect-card reveal"
+                onclick="openModal('testimony')"
+            >
+
+                <div class="connect-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    Thanksgiving & Testimony
+                </h3>
+
+                <p>
+                    Share your testimony and give thanks
+                    for what God has done in your life.
+                </p>
+
+                <span class="card-link">
+                    Share Testimony →
+                </span>
+
+            </div>
+
+
+            <!-- NEW MEMBER -->
+
+            <div
+                class="connect-card reveal"
+                onclick="openModal('member')"
+            >
+
+                <div class="connect-icon">
+                    👤
+                </div>
+
+                <h3>
+                    Join Our Church
+                </h3>
+
+                <p>
+                    Interested in becoming part of the
+                    Omega Prayer Mission family?
+                </p>
+
+                <span class="card-link">
+                    Register →
+                </span>
+
+            </div>
+
+
+            <!-- SUPPORT -->
+
+            <div
+                class="connect-card reveal"
+                onclick="openModal('support')"
+            >
+
+                <div class="connect-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Support Ministry
+                </h3>
+
+                <p>
+                    Support the work of ministry and help
+                    us continue reaching and serving people.
+                </p>
+
+                <span class="card-link">
+                    Support Ministry →
                 </span>
 
             </div>
@@ -1160,366 +2035,37 @@
 </section>
 
 
-<!-- =================================
-     PROGRAMME
-================================== -->
+<!-- =========================================================
+     WHATSAPP COMMUNITY
+========================================================= -->
 
-<section class="programme" id="programme">
+<section class="whatsapp-section">
 
     <div class="container">
 
-        <div class="section-heading reveal">
+        <div class="whatsapp-box reveal">
 
-            <small>
-                Weekly Programme
-            </small>
-
-            <h2>
-                Join Us Throughout the Week
-            </h2>
-
-            <p>
-                Make time to fellowship, pray, learn the Word
-                and grow together as a church family.
-            </p>
-
-        </div>
-
-
-        <div class="programme-grid">
-
-
-            <!-- MONDAY -->
-
-            <div class="day-card reveal">
-
-                <div class="day">
-                    Monday
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Prayer Classes
-                    </div>
-
-                    <div class="event-time">
-                        5:00 PM – 8:00 PM
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- TUESDAY -->
-
-            <div class="day-card reveal">
-
-                <div class="day">
-                    Tuesday
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Bible Study
-                    </div>
-
-                    <div class="event-time">
-                        5:00 PM – 8:00 PM
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- WEDNESDAY -->
-
-            <div class="day-card reveal">
-
-                <div class="day">
-                    Wednesday
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Counselling
-                    </div>
-
-                    <div class="event-time">
-                        10:00 AM – 3:00 PM
-                    </div>
-
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Bible Study
-                    </div>
-
-                    <div class="event-time">
-                        5:00 PM – 8:00 PM
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- THURSDAY -->
-
-            <div class="day-card reveal">
-
-                <div class="day">
-                    Thursday
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Ministering Groups Practice
-                    </div>
-
-                    <div class="event-time">
-                        5:00 PM – 8:00 PM
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- FRIDAY -->
-
-            <div class="day-card reveal">
-
-                <div class="day">
-                    Friday
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Prayer Altar
-                    </div>
-
-                    <div class="event-time">
-                        5:00 PM – 9:00 PM
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- SATURDAY -->
-
-            <div class="day-card reveal">
-
-                <div class="day">
-                    Saturday
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Ministering Groups Practice
-                    </div>
-
-                    <div class="event-time">
-                        Schedule
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- SUNDAY -->
-
-            <div class="day-card reveal">
-
-                <div class="day">
-                    Sunday
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Morning Service
-                    </div>
-
-                    <div class="event-time">
-                        8:00 AM – 9:30 AM
-                    </div>
-
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Breaking Chains
-                    </div>
-
-                    <div class="event-time">
-                        9:30 AM – 10:00 AM
-                    </div>
-
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Second Service
-                    </div>
-
-                    <div class="event-time">
-                        10:00 AM – 1:00 PM
-                    </div>
-
-                </div>
-
-                <div class="event">
-
-                    <div class="event-title">
-                        Mighty Youth Service
-                    </div>
-
-                    <div class="event-time">
-                        4:00 PM – 6:00 PM
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =================================
-     ABOUT
-================================== -->
-
-<section id="about">
-
-    <div class="container">
-
-        <div class="about-grid">
-
-            <div class="about-text reveal">
-
-                <div class="section-heading"
-                     style="text-align:left; margin-bottom:25px;">
-
-                    <small>
-                        About Our Church
-                    </small>
-
-                </div>
+            <div>
 
                 <h2>
-                    A Place to Seek God and
-                    <span>Grow.</span>
+                    Stay Connected With Omega
                 </h2>
 
                 <p>
-                    Omega Prayer Mission Church Mbuya exists
-                    to create an environment where people can
-                    encounter God, grow spiritually and discover
-                    their purpose.
-                </p>
-
-                <p>
-                    Through prayer, worship, fellowship,
-                    discipleship and the teaching of God's Word,
-                    we believe lives can be transformed.
+                    Join our WhatsApp community for church
+                    updates, announcements, prayers and programmes.
                 </p>
 
             </div>
 
-
-            <div class="values reveal">
-
-                <div class="value">
-
-                    <div class="value-icon">
-                        🙏
-                    </div>
-
-                    <h3>
-                        Prayer
-                    </h3>
-
-                    <p>
-                        Building a strong relationship with God
-                        through prayer and intercession.
-                    </p>
-
-                </div>
-
-
-                <div class="value">
-
-                    <div class="value-icon">
-                        📖
-                    </div>
-
-                    <h3>
-                        The Word
-                    </h3>
-
-                    <p>
-                        Growing in faith through the teaching
-                        and understanding of God's Word.
-                    </p>
-
-                </div>
-
-
-                <div class="value">
-
-                    <div class="value-icon">
-                        🎶
-                    </div>
-
-                    <h3>
-                        Worship
-                    </h3>
-
-                    <p>
-                        Honouring God through worship,
-                        praise and thanksgiving.
-                    </p>
-
-                </div>
-
-
-                <div class="value">
-
-                    <div class="value-icon">
-                        ❤️
-                    </div>
-
-                    <h3>
-                        Community
-                    </h3>
-
-                    <p>
-                        Creating a loving church family where
-                        people can belong and grow together.
-                    </p>
-
-                </div>
-
-            </div>
+            <a
+                class="btn gold"
+                href="https://chat.whatsapp.com/EOGAbOp9yaYLbxmGkgvmyI"
+                target="_blank"
+                rel="noopener"
+            >
+                Join WhatsApp Group →
+            </a>
 
         </div>
 
@@ -1528,130 +2074,26 @@
 </section>
 
 
-<!-- =================================
-     LEADERSHIP
-================================== -->
+<!-- =========================================================
+     VISIT
+========================================================= -->
 
-<section class="leaders" id="leadership">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <small>
-                Church Leadership
-            </small>
-
-            <h2>
-                Our Leaders
-            </h2>
-
-            <p>
-                Servants committed to leading God's people
-                in faith, prayer and purpose.
-            </p>
-
-        </div>
-
-
-        <div class="leaders-grid">
-
-
-            <div class="leader-card reveal">
-
-                <div class="leader-circle">
-                    LA
-                </div>
-
-                <h3>
-                    Dr. Apostle Livingstone Wagaba
-                </h3>
-
-                <p>
-                    Senior Apostle
-                </p>
-
-            </div>
-
-
-            <div class="leader-card reveal">
-
-                <div class="leader-circle">
-                    PB
-                </div>
-
-                <h3>
-                    Pastor Betty Wagaba
-                </h3>
-
-                <p>
-                    Pastor
-                </p>
-
-            </div>
-
-
-            <div class="leader-card reveal">
-
-                <div class="leader-circle">
-                    PE
-                </div>
-
-                <h3>
-                    Pastor Emmanuel Wagaba
-                </h3>
-
-                <p>
-                    Pastor
-                </p>
-
-            </div>
-
-
-            <div class="leader-card reveal">
-
-                <div class="leader-circle">
-                    PH
-                </div>
-
-                <h3>
-                    Pastor Henry Nsimbe
-                </h3>
-
-                <p>
-                    Pastor
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =================================
-     VISIT US
-================================== -->
-
-<section id="visit">
+<section class="visit" id="visit">
 
     <div class="container">
 
-        <div class="section-heading reveal">
+        <div class="section-title reveal">
 
-            <small>
-                Plan Your Visit
-            </small>
+            <div class="eyebrow">
+                FIND US
+            </div>
 
             <h2>
-                Come Worship With Us
+                Visit Omega Prayer Mission
             </h2>
 
             <p>
-                We would love to welcome you to Omega Prayer
-                Mission Church Mbuya.
+                We would love to welcome you in person.
             </p>
 
         </div>
@@ -1660,14 +2102,14 @@
         <div class="visit-grid">
 
 
-            <div class="contact-card reveal">
+            <div class="visit-card reveal">
 
                 <h3>
-                    Contact Us
+                    Church Information
                 </h3>
 
 
-                <div class="contact-item">
+                <div class="contact-line">
 
                     <div class="contact-icon">
                         📍
@@ -1675,21 +2117,42 @@
 
                     <div>
 
-                        <small>
+                        <strong>
                             Location
-                        </small>
+                        </strong>
 
-                        <p>
-                            Mbuya 2, Ismail Road<br>
+                        <span>
+                            Mbuya 2, Ismail Road,<br>
                             Kampala, Uganda
-                        </p>
+                        </span>
 
                     </div>
 
                 </div>
 
 
-                <div class="contact-item">
+                <div class="contact-line">
+
+                    <div class="contact-icon">
+                        📞
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Phone
+                        </strong>
+
+                        <a href="tel:+256772512884">
+                            +256 772 512884
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-line">
 
                     <div class="contact-icon">
                         ✉
@@ -1697,237 +2160,1029 @@
 
                     <div>
 
-                        <small>
+                        <strong>
                             Email
-                        </small>
+                        </strong>
+
+                        <a href="mailto:prayermissionomega@gmail.com">
+                            prayermissionomega@gmail.com
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="visit-card reveal">
+
+                <h3>
+                    Get Directions
+                </h3>
+
+                <p style="color:var(--muted);line-height:1.8;">
+
+                    Allow your browser to access your current
+                    location and Google Maps will calculate
+                    the route from where you are to the church.
+
+                </p>
+
+
+                <div class="direction-buttons">
+
+                    <button
+                        class="btn blue"
+                        onclick="navigateToChurch('driving')"
+                    >
+                        🚗 Driving
+                    </button>
+
+                    <button
+                        class="btn outline"
+                        onclick="navigateToChurch('walking')"
+                    >
+                        🚶 Walking
+                    </button>
+
+                    <a
+                        class="btn outline"
+                        target="_blank"
+                        rel="noopener"
+                        href="https://www.google.com/maps/search/?api=1&query=Omega%20Prayer%20Mission%20Church%20Mbuya%2C%20Ismail%20Road%2C%20Mbuya%202%2C%20Kampala"
+                    >
+                        📍 Open Maps
+                    </a>
+
+                </div>
+
+                <div
+                    class="location-status"
+                    id="locationStatus"
+                ></div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+
+            <div>
+
+                <div class="footer-brand">
+
+                    <img
+                        src="church-logo.jpeg"
+                        alt="Omega Prayer Mission Church logo"
+                    >
+
+                    <div>
+
+                        <strong>
+                            Omega Prayer Mission Church
+                        </strong>
 
                         <p>
-                            prayermissionomega@gmail.com
+                            Mbuya
                         </p>
 
                     </div>
 
                 </div>
 
-
-                <a
-                    href="mailto:prayermissionomega@gmail.com"
-                    class="btn btn-gold"
-                    style="display:inline-block;"
-                >
-                    Contact Church
-                </a>
+                <p>
+                    A place of prayer, restoration,
+                    worship, fellowship and transformation.
+                </p>
 
             </div>
 
 
-            <div class="map-box reveal">
+            <div>
 
-                <div class="map-content">
+                <h3>
+                    Quick Links
+                </h3>
 
-                    <div style="font-size:45px;">
-                        📍
-                    </div>
+                <div class="footer-links">
 
-                    <h3>
-                        Omega Prayer Mission Church
-                    </h3>
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#leadership">Leadership</a>
+                    <a href="#programme">Programme</a>
+                    <a href="#connect">Connect</a>
 
-                    <p>
-                        Mbuya 2, Ismail Road
-                    </p>
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Contact
+                </h3>
+
+                <div class="footer-links">
+
+                    <a href="tel:+256772512884">
+                        +256 772 512884
+                    </a>
+
+                    <a href="mailto:prayermissionomega@gmail.com">
+                        prayermissionomega@gmail.com
+                    </a>
 
                     <a
-                        href="https://www.google.com/maps/search/?api=1&query=Omega+Prayer+Mission+Church+Mbuya+Ismail+Road+Kampala"
+                        href="https://chat.whatsapp.com/EOGAbOp9yaYLbxmGkgvmyI"
                         target="_blank"
-                        class="btn btn-outline"
-                        style="display:inline-block;"
+                        rel="noopener"
                     >
-                        Open in Google Maps
+                        WhatsApp Community
                     </a>
 
                 </div>
 
             </div>
 
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =================================
-     CALL TO ACTION
-================================== -->
-
-<section class="cta">
-
-    <div class="container reveal">
-
-        <h2>
-            There Is A Place For You Here.
-        </h2>
-
-        <p>
-            Come as you are. Join us in prayer, worship,
-            fellowship and the Word as we pursue God together.
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="#programme"
-               class="btn btn-gold">
-                See Weekly Programme
-            </a>
-
-            <a href="mailto:prayermissionomega@gmail.com"
-               class="btn btn-outline">
-                Get In Touch
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =================================
-     FOOTER
-================================== -->
-
-<footer>
-
-    <div class="footer-container">
-
-        <div class="footer-brand">
-
-            <img
-                src="church-logo.jpeg"
-                alt="Omega Prayer Mission Logo"
-            >
-
-            <div>
-
-                <h3>
-                    Omega Prayer Mission Church
-                </h3>
-
-                <p>
-                    Mbuya 2, Ismail Road · Kampala, Uganda
-                </p>
-
-            </div>
 
         </div>
 
 
-        <div class="footer-links">
+        <div class="copyright">
 
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#programme">
-                Programme
-            </a>
-
-            <a href="#leadership">
-                Leadership
-            </a>
-
-            <a href="#visit">
-                Contact
-            </a>
+            © <span id="year"></span>
+            Omega Prayer Mission Church Mbuya.
+            All Rights Reserved.
 
         </div>
-
-    </div>
-
-
-    <div class="copyright">
-
-        © <span id="year"></span>
-        Omega Prayer Mission Church Mbuya.
-        All Rights Reserved.
 
     </div>
 
 </footer>
 
 
-<!-- =================================
+<!-- =========================================================
+     FLOATING WHATSAPP
+========================================================= -->
+
+<a
+    class="float-whatsapp"
+    href="https://wa.me/256772512884"
+    target="_blank"
+    rel="noopener"
+    aria-label="Contact church on WhatsApp"
+>
+    ☎
+</a>
+
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="formModal"
+    onclick="outsideModal(event)"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-top">
+
+            <button
+                class="close-modal"
+                onclick="closeModal()"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+            <div
+                class="modal-icon"
+                id="modalIcon"
+            >
+                🙏
+            </div>
+
+            <h2 id="modalTitle">
+                Prayer Request
+            </h2>
+
+            <p id="modalSubtitle">
+                Send your request directly to our church team.
+            </p>
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <!-- PRAYER FORM -->
+
+            <form
+                id="prayerForm"
+                onsubmit="submitForm(event,'prayer')"
+            >
+
+                <div class="form-group">
+
+                    <label>Name</label>
+
+                    <input
+                        name="Name"
+                        type="text"
+                        required
+                        placeholder="Your full name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Phone</label>
+
+                    <input
+                        name="Phone"
+                        type="tel"
+                        required
+                        placeholder="Your phone number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Prayer Request</label>
+
+                    <textarea
+                        name="Prayer Request"
+                        required
+                        placeholder="Tell us what you would like us to pray about..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn blue form-submit"
+                    type="submit"
+                >
+                    Send Prayer Request →
+                </button>
+
+            </form>
+
+
+            <!-- TESTIMONY FORM -->
+
+            <form
+                id="testimonyForm"
+                onsubmit="submitForm(event,'testimony')"
+                style="display:none;"
+            >
+
+                <div class="form-group">
+
+                    <label>Name</label>
+
+                    <input
+                        name="Name"
+                        type="text"
+                        required
+                        placeholder="Your full name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Phone</label>
+
+                    <input
+                        name="Phone"
+                        type="tel"
+                        required
+                        placeholder="Your phone number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Thanksgiving / Testimony</label>
+
+                    <textarea
+                        name="Thanksgiving / Testimony"
+                        required
+                        placeholder="Share what God has done..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn blue form-submit"
+                    type="submit"
+                >
+                    Send Thanksgiving →
+                </button>
+
+            </form>
+
+
+            <!-- MEMBER FORM -->
+
+            <form
+                id="memberForm"
+                onsubmit="submitForm(event,'member')"
+                style="display:none;"
+            >
+
+                <div class="form-group">
+
+                    <label>Full Name</label>
+
+                    <input
+                        name="Full Name"
+                        type="text"
+                        required
+                        placeholder="Your full name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Phone</label>
+
+                    <input
+                        name="Phone"
+                        type="tel"
+                        required
+                        placeholder="Your phone number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        name="Email"
+                        type="email"
+                        placeholder="Your email address"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Message</label>
+
+                    <textarea
+                        name="Message"
+                        placeholder="Anything you would like the church to know..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn blue form-submit"
+                    type="submit"
+                >
+                    Register With Us →
+                </button>
+
+            </form>
+
+
+            <!-- SUPPORT FORM -->
+
+            <form
+                id="supportForm"
+                onsubmit="submitForm(event,'support')"
+                style="display:none;"
+            >
+
+                <div class="form-group">
+
+                    <label>
+                        Name of Giver / Supporter
+                    </label>
+
+                    <input
+                        name="Name of Giver / Supporter"
+                        type="text"
+                        required
+                        placeholder="Full name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Phone
+                    </label>
+
+                    <input
+                        name="Phone"
+                        type="tel"
+                        required
+                        placeholder="Phone number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Amount Given / Sent
+                    </label>
+
+                    <input
+                        name="Amount Given / Sent"
+                        type="text"
+                        required
+                        placeholder="e.g. UGX 50,000"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Method of Giving
+                    </label>
+
+                    <select
+                        name="Method of Giving"
+                        required
+                    >
+
+                        <option value="">
+                            Select method
+                        </option>
+
+                        <option>
+                            Mobile Money
+                        </option>
+
+                        <option>
+                            Bank Transfer
+                        </option>
+
+                        <option>
+                            Cash
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Purpose / Message
+                    </label>
+
+                    <textarea
+                        name="Purpose / Message"
+                        required
+                        placeholder="Purpose of your support..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn blue form-submit"
+                    type="submit"
+                >
+                    Send Support Details →
+                </button>
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+>
+</div>
+
+
+<!-- =========================================================
      JAVASCRIPT
-================================== -->
+========================================================= -->
 
 <script>
 
-    /* Mobile menu */
+/* =========================================================
+   CONSTANTS
+========================================================= */
 
-    function toggleMenu() {
+const CHURCH_WHATSAPP = "256772512884";
 
-        const nav = document.getElementById("navLinks");
+const CHURCH_DESTINATION =
+    "Omega Prayer Mission Church Mbuya, Ismail Road, Mbuya 2, Kampala";
 
-        nav.classList.toggle("active");
 
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMenu(){
+
+    document
+        .getElementById("navLinks")
+        .classList.toggle("active");
+
+}
+
+function closeMenu(){
+
+    document
+        .getElementById("navLinks")
+        .classList.remove("active");
+
+}
+
+
+/* =========================================================
+   MODAL DATA
+========================================================= */
+
+const modalData = {
+
+    prayer:{
+        icon:"🙏",
+        title:"Prayer Request",
+        subtitle:
+            "Send your request directly to our church team.",
+        form:"prayerForm"
+    },
+
+    testimony:{
+        icon:"❤️",
+        title:"Thanksgiving & Testimony",
+        subtitle:
+            "Share what God has done and give thanks.",
+        form:"testimonyForm"
+    },
+
+    member:{
+        icon:"👤",
+        title:"Join Our Church",
+        subtitle:
+            "Take the next step and connect with the Omega family.",
+        form:"memberForm"
+    },
+
+    support:{
+        icon:"🤝",
+        title:"Support Ministry",
+        subtitle:
+            "Share your support details with the church.",
+        form:"supportForm"
     }
 
+};
 
-    /* Close mobile menu when link clicked */
 
-    document.querySelectorAll(".nav-links a").forEach(link => {
+/* =========================================================
+   OPEN MODAL
+========================================================= */
 
-        link.addEventListener("click", () => {
+function openModal(type){
 
-            document
-                .getElementById("navLinks")
-                .classList.remove("active");
+    const data = modalData[type];
 
-        });
+    if(!data) return;
+
+    document.getElementById("modalIcon").textContent =
+        data.icon;
+
+    document.getElementById("modalTitle").textContent =
+        data.title;
+
+    document.getElementById("modalSubtitle").textContent =
+        data.subtitle;
+
+
+    const forms = [
+        "prayerForm",
+        "testimonyForm",
+        "memberForm",
+        "supportForm"
+    ];
+
+    forms.forEach(id=>{
+
+        document.getElementById(id).style.display =
+            id === data.form ? "block" : "none";
 
     });
 
 
-    /* Automatic copyright year */
+    document
+        .getElementById("formModal")
+        .classList.add("active");
 
-    document.getElementById("year").textContent =
-        new Date().getFullYear();
+    document.body.style.overflow = "hidden";
+
+}
 
 
-    /* Scroll reveal animation */
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
 
-    const observer =
-        new IntersectionObserver(
-
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add("show");
-
-                    }
-
-                });
-
-            },
-
-            {
-                threshold: 0.12
-            }
-
-        );
-
+function closeModal(){
 
     document
-        .querySelectorAll(".reveal")
-        .forEach(element => {
+        .getElementById("formModal")
+        .classList.remove("active");
 
-            observer.observe(element);
+    document.body.style.overflow = "";
 
-        });
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+function outsideModal(event){
+
+    if(event.target.id === "formModal"){
+
+        closeModal();
+
+    }
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener("keydown",event=>{
+
+    if(event.key === "Escape"){
+
+        closeModal();
+
+    }
+
+});
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+function sendWhatsApp(message){
+
+    const url =
+        "https://wa.me/" +
+        CHURCH_WHATSAPP +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.open(
+        url,
+        "_blank",
+        "noopener"
+    );
+
+}
+
+
+/* =========================================================
+   FORM SUBMISSION
+========================================================= */
+
+function submitForm(event,type){
+
+    event.preventDefault();
+
+    const form = event.target;
+
+    const data = new FormData(form);
+
+
+    const titles = {
+
+        prayer:
+            "PRAYER REQUEST",
+
+        testimony:
+            "THANKSGIVING / TESTIMONY",
+
+        member:
+            "NEW MEMBER REGISTRATION",
+
+        support:
+            "MINISTRY SUPPORT"
+
+    };
+
+
+    let message =
+        "OMEGA PRAYER MISSION CHURCH MBUYA\n";
+
+    message +=
+        "================================\n";
+
+    message +=
+        titles[type] + "\n\n";
+
+
+    for(const [key,value] of data.entries()){
+
+        if(String(value).trim()){
+
+            message +=
+                key + ": " + value + "\n";
+
+        }
+
+    }
+
+
+    message +=
+        "\nSent from the Omega Prayer Mission Church website.";
+
+
+    sendWhatsApp(message);
+
+
+    form.reset();
+
+    closeModal();
+
+    showToast(
+        "Your details are ready to send on WhatsApp."
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },4000);
+
+}
+
+
+/* =========================================================
+   DYNAMIC GOOGLE MAPS DIRECTIONS
+========================================================= */
+
+function navigateToChurch(mode){
+
+    const status =
+        document.getElementById("locationStatus");
+
+
+    status.textContent =
+        "Requesting your current location…";
+
+
+    const fallback =
+        "https://www.google.com/maps/dir/?api=1" +
+        "&destination=" +
+        encodeURIComponent(CHURCH_DESTINATION) +
+        "&travelmode=" +
+        encodeURIComponent(mode);
+
+
+    if(!navigator.geolocation){
+
+        status.textContent =
+            "Location is unavailable. Opening Google Maps.";
+
+        window.open(
+            fallback,
+            "_blank",
+            "noopener"
+        );
+
+        return;
+
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        position=>{
+
+            const origin =
+                position.coords.latitude +
+                "," +
+                position.coords.longitude;
+
+
+            const route =
+                "https://www.google.com/maps/dir/?api=1" +
+                "&origin=" +
+                encodeURIComponent(origin) +
+                "&destination=" +
+                encodeURIComponent(CHURCH_DESTINATION) +
+                "&travelmode=" +
+                encodeURIComponent(mode);
+
+
+            status.textContent =
+                "Your location was found. Opening Google Maps with your route…";
+
+
+            window.open(
+                route,
+                "_blank",
+                "noopener"
+            );
+
+        },
+
+        ()=>{
+
+            status.textContent =
+                "Location permission was not granted. Opening Google Maps.";
+
+            window.open(
+                fallback,
+                "_blank",
+                "noopener"
+            );
+
+        },
+
+        {
+
+            enableHighAccuracy:true,
+
+            timeout:10000,
+
+            maximumAge:30000
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+
+        entries=>{
+
+            entries.forEach(entry=>{
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("visible");
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold:.12
+        }
+
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(element=>{
+
+        revealObserver.observe(element);
+
+    });
+
+
+/* =========================================================
+   PASTOR IMAGE FALLBACK
+========================================================= */
+
+document
+    .querySelectorAll("img[data-placeholder]")
+    .forEach(img=>{
+
+        img.addEventListener(
+            "error",
+            function(){
+
+                this.onerror = null;
+
+                this.src =
+                    this.dataset.placeholder;
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   CLOSE MOBILE MENU ON RESIZE
+========================================================= */
+
+window.addEventListener("resize",()=>{
+
+    if(window.innerWidth > 800){
+
+        closeMenu();
+
+    }
+
+});
 
 </script>
 
