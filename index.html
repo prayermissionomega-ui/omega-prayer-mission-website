@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +13,11 @@ content="Omega Prayer Mission Mbuya is a Bible-believing Christian ministry in M
 <meta name="author" content="Omega Prayer Mission Mbuya">
 <meta name="robots" content="index, follow">
 <meta name="keywords" content="Omega Prayer Mission Mbuya, Omega Prayer Mission, church in Mbuya, church in Kampala, prayer ministry Mbuya, Christian church Kampala, Uganda">
+
 <meta property="og:type" content="website">
 <meta property="og:title" content="Omega Prayer Mission Mbuya">
 <meta property="og:description" content="Bible-believing Christian ministry dedicated to spiritual awakening and community transformation.">
-<meta property="og:url" content="https://www.facebook.com/omegaprayermissionmbuya">
+<meta property="og:url" content="https://omegaprayermissionmbuya.org/">
 
 <meta name="theme-color" content="#155EEF">
 
@@ -27,8 +29,10 @@ content="Omega Prayer Mission Mbuya is a Bible-believing Christian ministry in M
   "name": "Omega Prayer Mission Mbuya",
   "alternateName": "Omega Prayer Mission Church Mbuya",
   "description": "Omega Prayer Mission is a vibrant, Bible-believing Christian ministry dedicated to spiritual awakening and community transformation under the mandate: Raising Giants for Christ to Possess Nations for Him.",
+  "url": "https://omegaprayermissionmbuya.org/",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "Ismail Road",
     "addressLocality": "Mbuya",
     "addressRegion": "Kampala",
     "addressCountry": "UG"
@@ -693,6 +697,142 @@ header{
 }
 
 /* =========================================================
+   BRANCHES
+========================================================= */
+
+.branches-section{
+    background:var(--blue-light);
+    padding-top:35px;
+}
+
+.branches{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.branch-card{
+    background:white;
+    border-radius:24px;
+    border:1px solid rgba(21,94,239,.08);
+    box-shadow:0 10px 35px rgba(7,36,92,.07);
+    padding:28px 24px;
+    transition:.4s;
+    position:relative;
+    overflow:hidden;
+}
+
+.branch-card::before{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(245,185,66,.08);
+    top:-55px;
+    right:-45px;
+    transition:.4s;
+}
+
+.branch-card:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+    border-color:rgba(21,94,239,.2);
+}
+
+.branch-card:hover::before{
+    transform:scale(1.8);
+}
+
+.branch-icon{
+    width:58px;
+    height:58px;
+    border-radius:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--blue-light);
+    color:var(--blue);
+    font-size:1.5rem;
+    margin-bottom:20px;
+    position:relative;
+    z-index:1;
+}
+
+.branch-card h3{
+    color:var(--dark-blue);
+    font-family:"Playfair Display",serif;
+    font-size:1.25rem;
+    margin-bottom:8px;
+    position:relative;
+    z-index:1;
+}
+
+.branch-location{
+    color:var(--blue);
+    font-size:.82rem;
+    font-weight:700;
+    margin-bottom:18px;
+    position:relative;
+    z-index:1;
+}
+
+.branch-leadership{
+    color:var(--muted);
+    font-size:.86rem;
+    line-height:1.7;
+    min-height:145px;
+    position:relative;
+    z-index:1;
+}
+
+.branch-leadership strong{
+    display:block;
+    color:var(--dark-blue);
+    margin-bottom:8px;
+}
+
+.branch-leadership ul{
+    margin:8px 0 0;
+    padding-left:18px;
+}
+
+.branch-leadership li{
+    margin-bottom:6px;
+}
+
+.branch-leadership p{
+    margin:0 0 5px;
+    color:var(--muted);
+}
+
+.branch-ministry{
+    display:block;
+    margin-top:10px;
+    color:var(--muted);
+    font-size:.78rem;
+    font-style:italic;
+}
+
+.branch-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:18px;
+    color:var(--gold-dark);
+    font-size:.82rem;
+    font-weight:800;
+    position:relative;
+    z-index:1;
+    transition:.3s;
+}
+
+.branch-link:hover{
+    color:var(--blue);
+    transform:translateX(4px);
+}
+
+/* =========================================================
    PROGRAMME
 ========================================================= */
 
@@ -1226,6 +1366,10 @@ footer{
         grid-template-columns:repeat(2,1fr);
     }
 
+    .branches{
+        grid-template-columns:repeat(2,1fr);
+    }
+
     .programme-grid{
         grid-template-columns:repeat(2,1fr);
     }
@@ -1319,6 +1463,7 @@ footer{
     }
 
     .leaders,
+    .branches,
     .programme-grid,
     .connect-grid,
     .values{
@@ -1350,8 +1495,7 @@ footer{
 @media(prefers-reduced-motion:reduce){
 
     *,
-    *::before,
-    *::after{
+    *::before{
         animation-duration:.01ms !important;
         animation-iteration-count:1 !important;
         scroll-behavior:auto !important;
@@ -1440,6 +1584,8 @@ footer{
             <a href="#about" onclick="closeMenu()">About</a>
 
             <a href="#leadership" onclick="closeMenu()">Leadership</a>
+
+            <a href="#branches" onclick="closeMenu()">Branches</a>
 
             <a href="#programme" onclick="closeMenu()">Programme</a>
 
@@ -1651,7 +1797,7 @@ footer{
                     </h3>
 
                     <p>
-                        Lead Apostle
+                        Head Pastor & Lead Apostle
                     </p>
 
                 </div>
@@ -1666,7 +1812,7 @@ footer{
                     <img
                         src="pastor-betty.jpg"
                         data-placeholder="church-logo.jpeg"
-                        alt="Pastor Betty Wagaba"
+                        alt="Pastor Elizabeth Betty Wagaba"
                     >
 
                 </div>
@@ -1674,7 +1820,7 @@ footer{
                 <div class="leader-info">
 
                     <h3>
-                        Pastor Betty Wagaba
+                        Pastor Elizabeth Betty Wagaba
                     </h3>
 
                     <p>
@@ -1741,17 +1887,230 @@ footer{
 
         </div>
 
-        <div class="about-copy reveal" style="max-width:900px;margin:45px auto 0;text-align:center;">
-            <h3 style="color:var(--dark-blue);font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:14px;">
-                Our Branch Network
-            </h3>
-            <p style="color:var(--muted);line-height:1.8;">
-                <strong>Mbuya Main Centre</strong> — Kampala &nbsp; • &nbsp;
-                <strong>Buwate Branch</strong> — Pastor Stanley Ssenkubuge &nbsp; • &nbsp;
-                <strong>Seeta Branch</strong> — Pastor Godfrey Mulindwa &nbsp; • &nbsp;
-                <strong>Gayaza Manyangwa Branch</strong> — Omega Prayer Global Revival Ministry,
-                Pastor Joseph Nsango
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BRANCHES
+========================================================= -->
+
+<section class="branches-section" id="branches">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <div class="eyebrow">
+                OUR BRANCHES
+            </div>
+
+            <h2>
+                Find an Omega Prayer Mission Near You
+            </h2>
+
+            <p>
+                Connect with Omega Prayer Mission through one
+                of our church branches and join us in prayer,
+                worship, fellowship and the Word of God.
             </p>
+
+        </div>
+
+
+        <div class="branches">
+
+
+            <!-- =================================================
+                 MBUYA MAIN CENTRE
+            ================================================== -->
+
+            <div class="branch-card reveal">
+
+                <div class="branch-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Mbuya Main Centre
+                </h3>
+
+                <div class="branch-location">
+                    Mbuya 2, Ismail Road, Kampala
+                </div>
+
+                <div class="branch-leadership">
+
+                    <strong>
+                        Church Leadership
+                    </strong>
+
+                    <ul>
+
+                        <li>
+                            Dr. Apostle Livingstone Wagaba —
+                            Head Pastor
+                        </li>
+
+                        <li>
+                            Pastor Elizabeth Betty Wagaba
+                        </li>
+
+                        <li>
+                            Pastor Emmanuel Wagaba
+                        </li>
+
+                        <li>
+                            Pastor Henry Nsimbe
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <a
+                    class="branch-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Omega%20Prayer%20Mission%20Church%20Mbuya%2C%20Ismail%20Road%2C%20Mbuya%202%2C%20Kampala"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    📍 Get Directions →
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 BUWATE BRANCH
+            ================================================== -->
+
+            <div class="branch-card reveal">
+
+                <div class="branch-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Buwate Branch
+                </h3>
+
+                <div class="branch-location">
+                    Buwate Road, Kampala
+                </div>
+
+                <div class="branch-leadership">
+
+                    <strong>
+                        Branch Pastor
+                    </strong>
+
+                    <p>
+                        Pastor Stanley Ssenkubuge
+                    </p>
+
+                </div>
+
+                <a
+                    class="branch-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Omega%20Prayer%20Mission%20Church%20Buwate"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    📍 Get Directions →
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 SEETA BRANCH
+            ================================================== -->
+
+            <div class="branch-card reveal">
+
+                <div class="branch-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Seeta Branch
+                </h3>
+
+                <div class="branch-location">
+                    Seeta, Uganda
+                </div>
+
+                <div class="branch-leadership">
+
+                    <strong>
+                        Branch Pastor
+                    </strong>
+
+                    <p>
+                        Pastor Godfrey Mulindwa
+                    </p>
+
+                </div>
+
+                <a
+                    class="branch-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Omega%20Prayer%20Mission%20Church%20Seeta"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    📍 Get Directions →
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 GAYAZA MANYANGWA BRANCH
+            ================================================== -->
+
+            <div class="branch-card reveal">
+
+                <div class="branch-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Gayaza Manyangwa Branch
+                </h3>
+
+                <div class="branch-location">
+                    Manyangwa Road, Kabbubu, Uganda
+                </div>
+
+                <div class="branch-leadership">
+
+                    <strong>
+                        Branch Pastor
+                    </strong>
+
+                    <p>
+                        Pastor Joseph Nsango
+                    </p>
+
+                    <span class="branch-ministry">
+                        Omega Prayer Global Revival Ministry
+                    </span>
+
+                </div>
+
+                <a
+                    class="branch-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Omega%20Prayer%20Global%20Revival%20Ministry%20Gayaza%20Manyangwa"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    📍 Get Directions →
+                </a>
+
+            </div>
+
+
         </div>
 
     </div>
@@ -2339,10 +2698,18 @@ footer{
                 <div class="footer-links">
 
                     <a href="#home">Home</a>
+
                     <a href="#about">About Us</a>
+
                     <a href="#leadership">Leadership</a>
+
+                    <a href="#branches">Branches</a>
+
                     <a href="#programme">Programme</a>
+
                     <a href="#connect">Connect</a>
+
+                    <a href="#visit">Visit Us</a>
 
                 </div>
 
@@ -3268,3 +3635,4 @@ window.addEventListener("resize",()=>{
 
 </body>
 </html>
+```
