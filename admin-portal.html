@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Omega Prayer Mission — Admin Portal</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    h1 {
+      color: #07245C;
+    }
+
+    button {
+      background: #155EEF;
+      color: white;
+      border: 0;
+      padding: 12px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    .logout {
+      background: #dc3545;
+    }
+
+    #dashboard {
+      display: none;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 15px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card" id="loginBox">
+    <h1>Omega Prayer Mission</h1>
+    <h2>Admin Login</h2>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Admin email"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+
+    <button onclick="login()">Sign In</button>
+
+    <div id="message"></div>
+  </div>
+
+
+  <div id="dashboard">
+
+    <div class="card">
+      <h1>Events Dashboard</h1>
+
+      <p>
+        Manage Special Events for the Omega Prayer Mission website.
+      </p>
+
+      <button class="logout" onclick="logout()">
+        Sign Out
+      </button>
+    </div>
+
+    <div class="card">
+      <h2>Special Events</h2>
+
+      <p>
+        The event management form will be added here next.
+      </p>
+
+      <div id="eventsList">
+        Loading events...
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const supabaseClient = window.supabase.createClient(
+  window.OMEGA_SUPABASE_URL,
+  window.OMEGA_SUPABASE_ANON_KEY
+);
+
+
+// LOGIN
+async function login() {
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  const message = document.getElementById("message");
+
+  if (!email || !password) {
+    message.textContent = "Please enter your email and password.";
+    return;
+  }
+
+  message.textContent = "Signing in...";
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  await checkAdmin();
+}
+
+
+// CHECK ADMIN
+async function checkAdmin() {
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    showLogin();
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("admin_users")
+    .select("user_id")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (error || !data) {
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("message").textContent =
+      "You are not authorized to access the admin portal.";
+
+    showLogin();
+
+    return;
+  }
+
+  showDashboard();
+
+  loadEvents();
+}
+
+
+// SHOW LOGIN
+function showLogin() {
+
+  document.getElementById("loginBox").style.display = "block";
+  document.getElementById("dashboard").style.display = "none";
+}
+
+
+// SHOW DASHBOARD
+function showDashboard() {
+
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+}
+
+
+// LOGOUT
+async function logout() {
+
+  await supabaseClient.auth.signOut();
+
+  showLogin();
+}
+
+
+// LOAD EVENTS
+async function loadEvents() {
+
+  const container = document.getElementById("eventsList");
+
+  const { data, error } = await supabaseClient
+    .from("events")
+    .select("*")
+    .order("event_date", { ascending: true });
+
+  if (error) {
+
+    container.innerHTML =
+      "<p>Could not load events: " +
+      error.message +
+      "</p>";
+
+    return;
+  }
+
+  if (!data || data.length === 0) {
+
+    container.innerHTML =
+      "<p>No events have been created yet.</p>";
+
+    return;
+  }
+
+  container.innerHTML = data.map(event => {
+
+    return `
+      <div style="
+        border:1px solid #ddd;
+        padding:15px;
+        margin:10px 0;
+        border-radius:8px;
+      ">
+
+        <strong>
+          ${event.title || "Untitled Event"}
+        </strong>
+
+        <br>
+
+        ${event.event_date || ""}
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+// CHECK EXISTING SESSION
+supabaseClient.auth.getSession()
+  .then(({ data }) => {
+
+    if (data.session) {
+      checkAdmin();
+    } else {
+      showLogin();
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
