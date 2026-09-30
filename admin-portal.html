@@ -2,716 +2,1835 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Omega Prayer Mission — Admin Portal</title>
 
-  <!-- Supabase JavaScript library -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-  </script>
-
-  <!-- Omega Prayer Mission Supabase configuration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config-data.js"></script>
 
   <style>
+    :root {
+      --blue: #155EEF;
+      --dark-blue: #07245C;
+      --deep-blue: #041735;
+      --gold: #F5B942;
+      --light: #f5f7fb;
+      --white: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --danger: #d92d20;
+      --success: #039855;
+      --border: #d0d5dd;
+    }
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fb;
-      color: #222;
+      font-family: Arial, sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: var(--deep-blue);
+      color: white;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .brand span {
+      color: var(--gold);
+    }
+
+    .logout-btn {
+      border: 1px solid rgba(255,255,255,0.3);
+      background: transparent;
+      color: white;
+      padding: 9px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .logout-btn:hover {
+      background: rgba(255,255,255,0.1);
     }
 
     .container {
-      width: 100%;
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: 30px 20px 60px;
     }
 
-    .card {
-      background: #ffffff;
-      padding: 25px;
-      margin-bottom: 20px;
-      border-radius: 14px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    .welcome {
+      margin-bottom: 25px;
     }
 
-    h1 {
-      margin-top: 0;
-      color: #07245C;
+    .welcome h1 {
+      margin: 0 0 8px;
+      color: var(--dark-blue);
     }
 
-    h2 {
-      color: #07245C;
-    }
-
-    input {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0 15px;
-      border: 1px solid #d5d9e2;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 12px 20px;
-      background: #155EEF;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .logout {
-      background: #dc3545;
+    .welcome p {
+      margin: 0;
+      color: var(--muted);
     }
 
     .message {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 7px;
       display: none;
+      padding: 13px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
 
-    .error {
+    .message.success {
       display: block;
-      background: #ffe5e5;
-      color: #a00000;
+      background: #ecfdf3;
+      color: #027a48;
+      border: 1px solid #abefc6;
     }
 
-    .success {
+    .message.error {
       display: block;
-      background: #e5f8eb;
-      color: #176b2c;
+      background: #fef3f2;
+      color: #b42318;
+      border: 1px solid #fecdca;
     }
 
-    #dashboard {
-      display: none;
+    .login-card,
+    .form-card,
+    .events-card {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(4, 23, 53, 0.08);
     }
 
-    .event-card {
-      border: 1px solid #e0e4eb;
+    .login-card {
+      max-width: 460px;
+      margin: 70px auto;
+      padding: 30px;
+    }
+
+    .login-card h1 {
+      color: var(--dark-blue);
+      margin-top: 0;
+    }
+
+    .login-card p {
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .form-card {
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+
+    .form-card h2,
+    .events-card h2 {
+      margin-top: 0;
+      color: var(--dark-blue);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+      color: var(--dark-blue);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font: inherit;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.1);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 10px;
+    }
+
+    .checkbox-row input {
+      width: auto;
+      transform: scale(1.2);
+    }
+
+    .checkbox-row label {
+      margin: 0;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 17px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .primary-btn {
+      background: var(--blue);
+      color: white;
+    }
+
+    .primary-btn:hover {
+      background: #0d4dcc;
+    }
+
+    .secondary-btn {
+      background: #eaecf0;
+      color: #344054;
+    }
+
+    .danger-btn {
+      background: #fee4e2;
+      color: var(--danger);
+    }
+
+    .edit-btn {
+      background: #eff4ff;
+      color: var(--blue);
+    }
+
+    .events-card {
+      padding: 25px;
+    }
+
+    .events-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .event-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .event-item {
+      border: 1px solid #eaecf0;
+      border-radius: 12px;
       padding: 18px;
-      margin-top: 15px;
-      border-radius: 10px;
-      background: #fafbfc;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 20px;
     }
 
-    .event-card strong {
-      color: #07245C;
-      font-size: 18px;
+    .poster {
+      width: 150px;
+      height: 110px;
+      border-radius: 9px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--dark-blue), var(--blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      text-align: center;
     }
 
-    .status {
+    .poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-content h3 {
+      margin: 0 0 8px;
+      color: var(--dark-blue);
+      font-size: 20px;
+    }
+
+    .event-meta {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .description {
+      margin: 10px 0;
+      color: #475467;
+      line-height: 1.6;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 10px 0;
+    }
+
+    .badge {
       display: inline-block;
-      margin-top: 10px;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-      background: #e9edf5;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .badge-upcoming {
+      background: #eff8ff;
+      color: #175cd3;
+    }
+
+    .badge-live {
+      background: #ecfdf3;
+      color: #027a48;
+    }
+
+    .badge-expired {
+      background: #f2f4f7;
+      color: #475467;
+    }
+
+    .badge-published {
+      background: #ecfdf3;
+      color: #027a48;
+    }
+
+    .badge-hidden {
+      background: #fef3f2;
+      color: #b42318;
+    }
+
+    .event-actions {
+      margin-top: 15px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .empty {
+      padding: 35px 15px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed #d0d5dd;
+      border-radius: 10px;
     }
 
     .loading {
-      color: #666;
+      text-align: center;
+      color: var(--muted);
+      padding: 25px;
+    }
+
+    .file-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .current-poster {
+      margin-top: 10px;
+      display: none;
+    }
+
+    .current-poster img {
+      width: 180px;
+      max-height: 130px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    @media (max-width: 750px) {
+      .topbar {
+        padding: 15px;
+      }
+
+      .container {
+        padding: 22px 14px 50px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      .event-item {
+        grid-template-columns: 1fr;
+      }
+
+      .poster {
+        width: 100%;
+        height: 180px;
+      }
+
+      .events-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
-
-    <!-- LOGIN -->
-    <div class="card" id="loginBox">
-
+  <!-- LOGIN -->
+  <section id="loginSection">
+    <div class="login-card">
       <h1>Omega Prayer Mission</h1>
+      <p>Admin Portal</p>
 
-      <h2>Admin Portal</h2>
+      <div id="loginMessage" class="message"></div>
 
-      <p>
-        Sign in to manage Special Events.
-      </p>
+      <form id="loginForm">
+        <div style="margin-bottom:16px;">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            required
+            autocomplete="email"
+          >
+        </div>
 
-      <label for="email">Email</label>
+        <div style="margin-bottom:18px;">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            required
+            autocomplete="current-password"
+          >
+        </div>
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Admin email"
-        autocomplete="email"
-      >
-
-      <label for="password">Password</label>
-
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        autocomplete="current-password"
-      >
-
-      <button type="button" onclick="login()">
-        Sign In
-      </button>
-
-      <div
-        id="loginMessage"
-        class="message">
-      </div>
-
-    </div>
-
-
-    <!-- DASHBOARD -->
-    <div id="dashboard">
-
-      <div class="card">
-
-        <h1>Events Dashboard</h1>
-
-        <p>
-          Welcome to the Omega Prayer Mission event management portal.
-        </p>
-
-        <button
-          type="button"
-          class="logout"
-          onclick="logout()">
-          Sign Out
+        <button type="submit" class="primary-btn" style="width:100%;">
+          Sign In
         </button>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- ADMIN AREA -->
+  <section id="adminSection" class="hidden">
+
+    <header class="topbar">
+      <div class="brand">
+        Omega Prayer <span>Mission</span> — Admin
+      </div>
+
+      <button class="logout-btn" id="logoutButton">
+        Sign Out
+      </button>
+    </header>
+
+    <main class="container">
+
+      <div class="welcome">
+        <h1>Events Dashboard</h1>
+        <p>
+          Create and manage Omega Prayer Mission special events.
+        </p>
+      </div>
+
+      <div id="mainMessage" class="message"></div>
+
+
+      <!-- EVENT FORM -->
+      <div class="form-card">
+
+        <h2 id="formTitle">Create Special Event</h2>
+
+        <form id="eventForm">
+
+          <input type="hidden" id="eventId">
+
+          <div class="form-grid">
+
+            <div class="full">
+              <label for="title">Event Title *</label>
+              <input
+                type="text"
+                id="title"
+                placeholder="e.g. Night of Prayer"
+                required
+              >
+            </div>
+
+            <div class="full">
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                placeholder="Describe the event..."
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="eventDate">Date & Time *</label>
+              <input
+                type="datetime-local"
+                id="eventDate"
+                required
+              >
+              <div class="file-note">
+                The exact date and time when the event starts.
+              </div>
+            </div>
+
+            <div>
+              <label for="location">Location</label>
+              <input
+                type="text"
+                id="location"
+                placeholder="e.g. Omega Prayer Mission Mbuya"
+              >
+            </div>
+
+            <div>
+              <label for="whatsappUrl">
+                WhatsApp / Registration Link
+              </label>
+              <input
+                type="url"
+                id="whatsappUrl"
+                placeholder="https://wa.me/..."
+              >
+            </div>
+
+            <div>
+              <label for="poster">Event Poster</label>
+              <input
+                type="file"
+                id="poster"
+                accept="image/*"
+              >
+              <div class="file-note">
+                JPG, PNG, WEBP or similar image.
+              </div>
+
+              <div id="currentPoster" class="current-poster">
+                <p style="font-size:13px;color:#667085;">
+                  Current poster:
+                </p>
+                <img id="currentPosterImage" src="" alt="Current poster">
+              </div>
+            </div>
+
+            <div class="full">
+
+              <div class="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="isSpecial"
+                  checked
+                >
+                <label for="isSpecial">
+                  Special Event
+                </label>
+              </div>
+
+              <div class="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="published"
+                  checked
+                >
+                <label for="published">
+                  Publish this event publicly
+                </label>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+
+            <button
+              type="submit"
+              class="primary-btn"
+              id="saveButton"
+            >
+              Create Event
+            </button>
+
+            <button
+              type="button"
+              class="secondary-btn hidden"
+              id="cancelEditButton"
+            >
+              Cancel Edit
+            </button>
+
+          </div>
+
+        </form>
 
       </div>
 
 
-      <div class="card">
+      <!-- EVENTS -->
+      <div class="events-card">
 
-        <h2>Special Events</h2>
+        <div class="events-header">
+          <h2>Special Events</h2>
 
-        <div id="eventsList">
-          <p class="loading">
+          <button
+            type="button"
+            class="secondary-btn"
+            id="refreshButton"
+          >
+            Refresh
+          </button>
+        </div>
+
+        <div id="eventsContainer">
+          <div class="loading">
             Loading events...
-          </p>
+          </div>
         </div>
 
       </div>
 
-    </div>
+    </main>
 
-  </div>
-
-
-  <script>
-
-    /*
-      -------------------------------------------------------
-      SUPABASE INITIALIZATION
-      -------------------------------------------------------
-    */
-
-    let supabaseClient = null;
+  </section>
 
 
-    function initializeSupabase() {
+<script>
+  let supabaseClient = null;
 
-      if (
-        typeof window.supabase === "undefined"
-      ) {
-        showLoginMessage(
-          "Supabase library failed to load.",
-          "error"
-        );
-
-        return false;
-      }
+  const BUCKET_NAME = "event-posters";
 
 
-      if (
-        !window.OMEGA_SUPABASE_URL ||
-        !window.OMEGA_SUPABASE_ANON_KEY
-      ) {
+  // --------------------------------------------------
+  // INITIALIZE SUPABASE
+  // --------------------------------------------------
 
-        showLoginMessage(
-          "Supabase configuration could not be loaded.",
-          "error"
-        );
+  function initializeSupabase() {
 
-        return false;
-      }
-
-
-      supabaseClient =
-        window.supabase.createClient(
-          window.OMEGA_SUPABASE_URL,
-          window.OMEGA_SUPABASE_ANON_KEY
-        );
-
-
-      return true;
-    }
-
-
-    /*
-      -------------------------------------------------------
-      LOGIN MESSAGE
-      -------------------------------------------------------
-    */
-
-    function showLoginMessage(message, type) {
-
-      const element =
-        document.getElementById("loginMessage");
-
-      element.textContent = message;
-
-      element.className =
-        "message " + type;
-    }
-
-
-    /*
-      -------------------------------------------------------
-      SHOW LOGIN
-      -------------------------------------------------------
-    */
-
-    function showLogin() {
-
-      document.getElementById("loginBox")
-        .style.display = "block";
-
-      document.getElementById("dashboard")
-        .style.display = "none";
-    }
-
-
-    /*
-      -------------------------------------------------------
-      SHOW DASHBOARD
-      -------------------------------------------------------
-    */
-
-    function showDashboard() {
-
-      document.getElementById("loginBox")
-        .style.display = "none";
-
-      document.getElementById("dashboard")
-        .style.display = "block";
-    }
-
-
-    /*
-      -------------------------------------------------------
-      LOGIN
-      -------------------------------------------------------
-    */
-
-    async function login() {
-
-      if (!supabaseClient) {
-
-        showLoginMessage(
-          "Supabase is not initialized.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      const email =
-        document.getElementById("email")
-          .value
-          .trim();
-
-
-      const password =
-        document.getElementById("password")
-          .value;
-
-
-      if (!email || !password) {
-
-        showLoginMessage(
-          "Please enter your email and password.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      showLoginMessage(
-        "Signing in...",
-        "success"
+    if (
+      !window.OMEGA_SUPABASE_URL ||
+      !window.OMEGA_SUPABASE_ANON_KEY
+    ) {
+      throw new Error(
+        "Supabase configuration could not be loaded."
       );
+    }
+
+    supabaseClient = window.supabase.createClient(
+      window.OMEGA_SUPABASE_URL,
+      window.OMEGA_SUPABASE_ANON_KEY
+    );
+  }
 
 
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
+  // --------------------------------------------------
+  // MESSAGE HELPERS
+  // --------------------------------------------------
+
+  function showMessage(elementId, message, type) {
+
+    const element = document.getElementById(elementId);
+
+    element.textContent = message;
+
+    element.className = "message " + type;
+  }
+
+
+  function clearMessage(elementId) {
+
+    const element = document.getElementById(elementId);
+
+    element.textContent = "";
+
+    element.className = "message";
+  }
+
+
+  // --------------------------------------------------
+  // LOGIN
+  // --------------------------------------------------
+
+  async function login(email, password) {
+
+    clearMessage("loginMessage");
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data.user) {
+      throw new Error("Login failed.");
+    }
+
+    const isAdmin = await checkAdmin(data.user.id);
+
+    if (!isAdmin) {
+
+      await supabaseClient.auth.signOut();
+
+      throw new Error(
+        "This account is not registered as an administrator."
+      );
+    }
+
+    document
+      .getElementById("loginSection")
+      .classList.add("hidden");
+
+    document
+      .getElementById("adminSection")
+      .classList.remove("hidden");
+
+    await loadEvents();
+  }
+
+
+  // --------------------------------------------------
+  // CHECK ADMIN
+  // --------------------------------------------------
+
+  async function checkAdmin(userId) {
+
+    const { data, error } =
+      await supabaseClient
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", userId)
+        .maybeSingle();
+
+    if (error) {
+      throw error;
+    }
+
+    return !!data;
+  }
+
+
+  // --------------------------------------------------
+  // STATUS CALCULATION
+  // --------------------------------------------------
+
+  function calculateStatus(eventDate) {
+
+    const start = new Date(eventDate).getTime();
+
+    const now = Date.now();
+
+    const expiry =
+      start + (24 * 60 * 60 * 1000);
+
+
+    if (now < start) {
+      return "Upcoming";
+    }
+
+    if (now < expiry) {
+      return "Live";
+    }
+
+    return "Expired";
+  }
+
+
+  // --------------------------------------------------
+  // FORMAT DATE
+  // --------------------------------------------------
+
+  function formatDate(dateValue) {
+
+    const date = new Date(dateValue);
+
+    return date.toLocaleString(
+      undefined,
+      {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }
+    );
+  }
+
+
+  // --------------------------------------------------
+  // LOAD EVENTS
+  // --------------------------------------------------
+
+  async function loadEvents() {
+
+    const container =
+      document.getElementById("eventsContainer");
+
+    container.innerHTML =
+      '<div class="loading">Loading events...</div>';
+
+
+    const { data, error } =
+      await supabaseClient
+        .from("events")
+        .select("*")
+        .eq("is_special", true)
+        .order("event_date", {
+          ascending: true
         });
 
 
-      if (error) {
-
-        showLoginMessage(
-          error.message,
-          "error"
-        );
-
-        return;
-      }
-
-
-      if (!data || !data.user) {
-
-        showLoginMessage(
-          "Login failed. No user was returned.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      await checkAdmin();
-
-    }
-
-
-    /*
-      -------------------------------------------------------
-      CHECK ADMIN AUTHORIZATION
-      -------------------------------------------------------
-    */
-
-    async function checkAdmin() {
-
-      if (!supabaseClient) {
-        return;
-      }
-
-
-      const {
-        data: {
-          user
-        }
-      } =
-        await supabaseClient.auth.getUser();
-
-
-      if (!user) {
-
-        showLogin();
-
-        return;
-      }
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("admin_users")
-          .select("user_id")
-          .eq("user_id", user.id)
-          .maybeSingle();
-
-
-      if (error) {
-
-        console.error(
-          "Admin check error:",
-          error
-        );
-
-        await supabaseClient.auth.signOut();
-
-
-        showLoginMessage(
-          "Could not verify administrator access: " +
-          error.message,
-          "error"
-        );
-
-        showLogin();
-
-        return;
-      }
-
-
-      if (!data) {
-
-        await supabaseClient.auth.signOut();
-
-
-        showLoginMessage(
-          "You are not authorized to access the admin portal.",
-          "error"
-        );
-
-        showLogin();
-
-        return;
-      }
-
-
-      showDashboard();
-
-      loadEvents();
-
-    }
-
-
-    /*
-      -------------------------------------------------------
-      LOAD EVENTS
-      -------------------------------------------------------
-    */
-
-    async function loadEvents() {
-
-      const container =
-        document.getElementById("eventsList");
-
+    if (error) {
 
       container.innerHTML =
-        "<p class='loading'>Loading events...</p>";
+        '<div class="empty">Unable to load events.</div>';
+
+      showMessage(
+        "mainMessage",
+        error.message,
+        "error"
+      );
+
+      return;
+    }
 
 
-      const {
-        data,
-        error
-      } =
+    if (!data || data.length === 0) {
+
+      container.innerHTML = `
+        <div class="empty">
+          No special events have been created yet.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    data.forEach(function(event) {
+
+      const status =
+        calculateStatus(event.event_date);
+
+      const statusClass =
+        status === "Upcoming"
+          ? "badge-upcoming"
+          : status === "Live"
+            ? "badge-live"
+            : "badge-expired";
+
+
+      const publishedBadge =
+        event.published
+          ? `
+            <span class="badge badge-published">
+              Published
+            </span>
+          `
+          : `
+            <span class="badge badge-hidden">
+              Hidden
+            </span>
+          `;
+
+
+      const article =
+        document.createElement("div");
+
+      article.className = "event-item";
+
+
+      const poster =
+        event.poster_url
+          ? `
+            <div class="poster">
+              <img
+                src="${escapeHtml(event.poster_url)}"
+                alt="${escapeHtml(event.title)}"
+              >
+            </div>
+          `
+          : `
+            <div class="poster">
+              Omega Prayer Mission
+            </div>
+          `;
+
+
+      article.innerHTML = `
+
+        ${poster}
+
+        <div class="event-content">
+
+          <h3>
+            ${escapeHtml(event.title)}
+          </h3>
+
+          <div class="badges">
+
+            <span class="badge ${statusClass}">
+              ${status}
+            </span>
+
+            ${publishedBadge}
+
+            <span class="badge badge-upcoming">
+              Special Event
+            </span>
+
+          </div>
+
+          <div class="event-meta">
+
+            <div>
+              <strong>Starts:</strong>
+              ${formatDate(event.event_date)}
+            </div>
+
+            ${
+              event.location
+                ? `
+                  <div>
+                    <strong>Location:</strong>
+                    ${escapeHtml(event.location)}
+                  </div>
+                `
+                : ""
+            }
+
+            ${
+              event.whatsapp_url
+                ? `
+                  <div>
+                    <strong>Registration:</strong>
+                    Link available
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+
+          ${
+            event.description
+              ? `
+                <div class="description">
+                  ${escapeHtml(event.description)}
+                </div>
+              `
+              : ""
+          }
+
+          <div class="event-actions">
+
+            <button
+              class="edit-btn"
+              onclick="editEvent('${event.id}')"
+            >
+              Edit
+            </button>
+
+            <button
+              class="danger-btn"
+              onclick="deleteEvent('${event.id}')"
+            >
+              Delete
+            </button>
+
+            <button
+              class="secondary-btn"
+              onclick="togglePublished(
+                '${event.id}',
+                ${event.published}
+              )"
+            >
+              ${
+                event.published
+                  ? "Hide"
+                  : "Publish"
+              }
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+
+      container.appendChild(article);
+
+    });
+  }
+
+
+  // --------------------------------------------------
+  // ESCAPE HTML
+  // --------------------------------------------------
+
+  function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+      return "";
+    }
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  // --------------------------------------------------
+  // CONVERT LOCAL DATETIME TO ISO
+  // --------------------------------------------------
+
+  function localDateTimeToISO(value) {
+
+    if (!value) {
+      return null;
+    }
+
+    const date = new Date(value);
+
+    if (isNaN(date.getTime())) {
+      return null;
+    }
+
+    return date.toISOString();
+  }
+
+
+  // --------------------------------------------------
+  // CREATE / UPDATE EVENT
+  // --------------------------------------------------
+
+  async function saveEvent(event) {
+
+    const title =
+      document.getElementById("title").value.trim();
+
+    const description =
+      document.getElementById("description").value.trim();
+
+    const eventDateInput =
+      document.getElementById("eventDate").value;
+
+    const location =
+      document.getElementById("location").value.trim();
+
+    const whatsappUrl =
+      document.getElementById("whatsappUrl").value.trim();
+
+    const isSpecial =
+      document.getElementById("isSpecial").checked;
+
+    const published =
+      document.getElementById("published").checked;
+
+    const posterFile =
+      document.getElementById("poster").files[0];
+
+
+    if (!title) {
+      throw new Error("Event title is required.");
+    }
+
+
+    if (!eventDateInput) {
+      throw new Error("Event date and time are required.");
+    }
+
+
+    const eventDate =
+      localDateTimeToISO(eventDateInput);
+
+
+    if (!eventDate) {
+      throw new Error("Invalid event date and time.");
+    }
+
+
+    let posterUrl =
+      event ? event.poster_url : null;
+
+
+    // ------------------------------------------------
+    // UPLOAD POSTER IF SELECTED
+    // ------------------------------------------------
+
+    if (posterFile) {
+
+      const userResult =
+        await supabaseClient.auth.getUser();
+
+      const user =
+        userResult.data.user;
+
+      if (!user) {
+        throw new Error("Your session has expired.");
+      }
+
+
+      const fileExtension =
+        posterFile.name
+          .split(".")
+          .pop()
+          .toLowerCase();
+
+
+      const safeExtension =
+        fileExtension || "jpg";
+
+
+      const uniqueName =
+        `${Date.now()}-${crypto.randomUUID()}.${safeExtension}`;
+
+
+      const filePath =
+        `events/${uniqueName}`;
+
+
+      const { error: uploadError } =
         await supabaseClient
-          .from("events")
-          .select("*")
-          .order(
-            "event_date",
+          .storage
+          .from(BUCKET_NAME)
+          .upload(
+            filePath,
+            posterFile,
             {
-              ascending: true
+              cacheControl: "3600",
+              upsert: false
             }
           );
 
 
-      if (error) {
-
-        console.error(
-          "Events error:",
-          error
-        );
-
-
-        container.innerHTML =
-          "<p>Could not load events.</p>" +
-          "<p>" +
-          escapeHtml(error.message) +
-          "</p>";
-
-        return;
+      if (uploadError) {
+        throw uploadError;
       }
 
 
-      if (!data || data.length === 0) {
-
-        container.innerHTML =
-          "<p>No events have been created yet.</p>";
-
-        return;
-      }
+      const { data: publicData } =
+        supabaseClient
+          .storage
+          .from(BUCKET_NAME)
+          .getPublicUrl(filePath);
 
 
-      container.innerHTML =
-        data
-          .map(event => {
-
-            const title =
-              event.title ||
-              "Untitled Event";
+      posterUrl =
+        publicData.publicUrl;
+    }
 
 
-            const eventDate =
-              event.event_date ||
-              "";
+    // ------------------------------------------------
+    // UPDATE EXISTING EVENT
+    // ------------------------------------------------
 
+    if (event) {
 
-            const status =
-              calculateStatus(eventDate);
-
-
-            return `
-              <div class="event-card">
-
-                <strong>
-                  ${escapeHtml(title)}
-                </strong>
-
-                <br>
-
-                <span>
-                  ${escapeHtml(eventDate)}
-                </span>
-
-                <br>
-
-                <span class="status">
-                  ${status}
-                </span>
-
-              </div>
-            `;
-
+      const { error } =
+        await supabaseClient
+          .from("events")
+          .update({
+            title: title,
+            description: description || null,
+            event_date: eventDate,
+            location: location || null,
+            poster_url: posterUrl,
+            whatsapp_url: whatsappUrl || null,
+            is_special: isSpecial,
+            published: published,
+            updated_at: new Date().toISOString()
           })
-          .join("");
-
-    }
+          .eq("id", event.id);
 
 
-    /*
-      -------------------------------------------------------
-      EVENT STATUS
-      -------------------------------------------------------
-    */
-
-    function calculateStatus(eventDate) {
-
-      if (!eventDate) {
-        return "Unknown";
+      if (error) {
+        throw error;
       }
 
 
-      const start =
-        new Date(eventDate);
-
-
-      const now =
-        new Date();
-
-
-      const expiry =
-        new Date(
-          start.getTime() +
-          (24 * 60 * 60 * 1000)
-        );
-
-
-      if (now < start) {
-        return "Upcoming";
-      }
-
-
-      if (now < expiry) {
-        return "Live";
-      }
-
-
-      return "Expired";
+      showMessage(
+        "mainMessage",
+        "Event updated successfully.",
+        "success"
+      );
 
     }
 
+    // ------------------------------------------------
+    // CREATE NEW EVENT
+    // ------------------------------------------------
 
-    /*
-      -------------------------------------------------------
-      HTML ESCAPING
-      -------------------------------------------------------
-    */
+    else {
 
-    function escapeHtml(value) {
+      const userResult =
+        await supabaseClient.auth.getUser();
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    }
+      const user =
+        userResult.data.user;
 
 
-    /*
-      -------------------------------------------------------
-      LOGOUT
-      -------------------------------------------------------
-    */
-
-    async function logout() {
-
-      if (supabaseClient) {
-
-        await supabaseClient.auth.signOut();
-
+      if (!user) {
+        throw new Error("Your session has expired.");
       }
 
 
-      showLogin();
+      const { error } =
+        await supabaseClient
+          .from("events")
+          .insert({
+            title: title,
+            description: description || null,
+            event_date: eventDate,
+            location: location || null,
+            poster_url: posterUrl,
+            whatsapp_url: whatsappUrl || null,
+            is_special: isSpecial,
+            published: published,
+            created_by: user.id
+          });
 
+
+      if (error) {
+        throw error;
+      }
+
+
+      showMessage(
+        "mainMessage",
+        "Event created successfully.",
+        "success"
+      );
     }
 
 
-    /*
-      -------------------------------------------------------
-      INITIALIZE
-      -------------------------------------------------------
-    */
+    resetForm();
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      async function () {
-
-        const initialized =
-          initializeSupabase();
+    await loadEvents();
+  }
 
 
-        if (!initialized) {
-          return;
+  // --------------------------------------------------
+  // EDIT EVENT
+  // --------------------------------------------------
+
+  async function editEvent(eventId) {
+
+    const { data, error } =
+      await supabaseClient
+        .from("events")
+        .select("*")
+        .eq("id", eventId)
+        .single();
+
+
+    if (error) {
+
+      showMessage(
+        "mainMessage",
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    document.getElementById("eventId").value =
+      data.id;
+
+    document.getElementById("title").value =
+      data.title || "";
+
+    document.getElementById("description").value =
+      data.description || "";
+
+    document.getElementById("location").value =
+      data.location || "";
+
+    document.getElementById("whatsappUrl").value =
+      data.whatsapp_url || "";
+
+    document.getElementById("isSpecial").checked =
+      !!data.is_special;
+
+    document.getElementById("published").checked =
+      !!data.published;
+
+
+    // Convert UTC database timestamp to local datetime input
+
+    const date =
+      new Date(data.event_date);
+
+    const offset =
+      date.getTimezoneOffset();
+
+    const localDate =
+      new Date(
+        date.getTime() - offset * 60000
+      );
+
+
+    document.getElementById("eventDate").value =
+      localDate
+        .toISOString()
+        .slice(0, 16);
+
+
+    document.getElementById("formTitle").textContent =
+      "Edit Special Event";
+
+    document.getElementById("saveButton").textContent =
+      "Update Event";
+
+    document
+      .getElementById("cancelEditButton")
+      .classList.remove("hidden");
+
+
+    const currentPoster =
+      document.getElementById("currentPoster");
+
+    const currentPosterImage =
+      document.getElementById("currentPosterImage");
+
+
+    if (data.poster_url) {
+
+      currentPosterImage.src =
+        data.poster_url;
+
+      currentPoster.style.display =
+        "block";
+
+    } else {
+
+      currentPoster.style.display =
+        "none";
+    }
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  // --------------------------------------------------
+  // DELETE EVENT
+  // --------------------------------------------------
+
+  async function deleteEvent(eventId) {
+
+    const confirmed =
+      confirm(
+        "Are you sure you want to permanently delete this event?"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    const { data: event, error: fetchError } =
+      await supabaseClient
+        .from("events")
+        .select("id, poster_url")
+        .eq("id", eventId)
+        .single();
+
+
+    if (fetchError) {
+
+      showMessage(
+        "mainMessage",
+        fetchError.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    // Delete poster from storage if one exists
+
+    if (event.poster_url) {
+
+      try {
+
+        const url =
+          new URL(event.poster_url);
+
+        const marker =
+          `/storage/v1/object/public/${BUCKET_NAME}/`;
+
+        const index =
+          url.pathname.indexOf(marker);
+
+
+        if (index !== -1) {
+
+          const filePath =
+            decodeURIComponent(
+              url.pathname.substring(
+                index + marker.length
+              )
+            );
+
+
+          if (filePath) {
+
+            await supabaseClient
+              .storage
+              .from(BUCKET_NAME)
+              .remove([filePath]);
+
+          }
         }
 
+      } catch (storageError) {
+
+        console.warn(
+          "Poster cleanup warning:",
+          storageError
+        );
+      }
+    }
+
+
+    const { error } =
+      await supabaseClient
+        .from("events")
+        .delete()
+        .eq("id", eventId);
+
+
+    if (error) {
+
+      showMessage(
+        "mainMessage",
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    showMessage(
+      "mainMessage",
+      "Event deleted successfully.",
+      "success"
+    );
+
+
+    await loadEvents();
+  }
+
+
+  // --------------------------------------------------
+  // PUBLISH / HIDE
+  // --------------------------------------------------
+
+  async function togglePublished(
+    eventId,
+    currentPublished
+  ) {
+
+    const newValue =
+      !currentPublished;
+
+
+    const { error } =
+      await supabaseClient
+        .from("events")
+        .update({
+          published: newValue,
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", eventId);
+
+
+    if (error) {
+
+      showMessage(
+        "mainMessage",
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    showMessage(
+      "mainMessage",
+      newValue
+        ? "Event published."
+        : "Event hidden.",
+      "success"
+    );
+
+
+    await loadEvents();
+  }
+
+
+  // --------------------------------------------------
+  // RESET FORM
+  // --------------------------------------------------
+
+  function resetForm() {
+
+    document
+      .getElementById("eventForm")
+      .reset();
+
+
+    document.getElementById("eventId").value =
+      "";
+
+
+    document.getElementById("isSpecial").checked =
+      true;
+
+
+    document.getElementById("published").checked =
+      true;
+
+
+    document.getElementById("formTitle").textContent =
+      "Create Special Event";
+
+
+    document.getElementById("saveButton").textContent =
+      "Create Event";
+
+
+    document
+      .getElementById("cancelEditButton")
+      .classList.add("hidden");
+
+
+    document.getElementById("currentPoster").style.display =
+      "none";
+  }
+
+
+  // --------------------------------------------------
+  // LOGOUT
+  // --------------------------------------------------
+
+  async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    document
+      .getElementById("adminSection")
+      .classList.add("hidden");
+
+    document
+      .getElementById("loginSection")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("loginForm")
+      .reset();
+  }
+
+
+  // --------------------------------------------------
+  // PAGE START
+  // --------------------------------------------------
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+      try {
+
+        initializeSupabase();
+
+
+        // LOGIN FORM
+
+        document
+          .getElementById("loginForm")
+          .addEventListener(
+            "submit",
+            async function(event) {
+
+              event.preventDefault();
+
+              const email =
+                document.getElementById("email").value.trim();
+
+              const password =
+                document.getElementById("password").value;
+
+
+              try {
+
+                await login(
+                  email,
+                  password
+                );
+
+              } catch (error) {
+
+                showMessage(
+                  "loginMessage",
+                  error.message,
+                  "error"
+                );
+              }
+
+            }
+          );
+
+
+        // EVENT FORM
+
+        document
+          .getElementById("eventForm")
+          .addEventListener(
+            "submit",
+            async function(event) {
+
+              event.preventDefault();
+
+              clearMessage("mainMessage");
+
+
+              const eventId =
+                document.getElementById("eventId").value;
+
+
+              let existingEvent = null;
+
+
+              if (eventId) {
+
+                const result =
+                  await supabaseClient
+                    .from("events")
+                    .select("*")
+                    .eq("id", eventId)
+                    .single();
+
+
+                if (result.error) {
+
+                  showMessage(
+                    "mainMessage",
+                    result.error.message,
+                    "error"
+                  );
+
+                  return;
+                }
+
+
+                existingEvent =
+                  result.data;
+              }
+
+
+              const button =
+                document.getElementById("saveButton");
+
+
+              button.disabled = true;
+
+              button.textContent =
+                eventId
+                  ? "Updating..."
+                  : "Creating...";
+
+
+              try {
+
+                await saveEvent(
+                  existingEvent
+                );
+
+              } catch (error) {
+
+                showMessage(
+                  "mainMessage",
+                  error.message,
+                  "error"
+                );
+
+              } finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                  eventId
+                    ? "Update Event"
+                    : "Create Event";
+              }
+
+            }
+          );
+
+
+        // CANCEL EDIT
+
+        document
+          .getElementById("cancelEditButton")
+          .addEventListener(
+            "click",
+            function() {
+
+              resetForm();
+
+            }
+          );
+
+
+        // REFRESH
+
+        document
+          .getElementById("refreshButton")
+          .addEventListener(
+            "click",
+            async function() {
+
+              await loadEvents();
+
+            }
+          );
+
+
+        // LOGOUT
+
+        document
+          .getElementById("logoutButton")
+          .addEventListener(
+            "click",
+            logout
+          );
+
+
+        // CHECK EXISTING SESSION
 
         const {
-          data
+          data: sessionData
         } =
           await supabaseClient.auth.getSession();
 
 
         if (
-          data &&
-          data.session
+          sessionData &&
+          sessionData.session &&
+          sessionData.session.user
         ) {
 
-          await checkAdmin();
+          const user =
+            sessionData.session.user;
 
-        } else {
 
-          showLogin();
+          const isAdmin =
+            await checkAdmin(user.id);
 
+
+          if (isAdmin) {
+
+            document
+              .getElementById("loginSection")
+              .classList.add("hidden");
+
+            document
+              .getElementById("adminSection")
+              .classList.remove("hidden");
+
+            await loadEvents();
+
+          } else {
+
+            await supabaseClient.auth.signOut();
+
+          }
         }
 
-      }
-    );
 
-  </script>
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          "loginMessage",
+          error.message,
+          "error"
+        );
+
+      }
+
+    }
+  );
+</script>
 
 </body>
 </html>
