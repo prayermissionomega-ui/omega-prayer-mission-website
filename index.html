@@ -999,6 +999,200 @@ header{
 }
 
 /* =========================================================
+   WHATSAPP SERVICE REMINDERS
+========================================================= */
+
+.reminders-section{
+    background:linear-gradient(180deg,#FFFFFF 0%,#F8FBFF 100%);
+}
+
+.reminders-card{
+    width:min(980px,100%);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    gap:0;
+    overflow:hidden;
+    border-radius:30px;
+    background:white;
+    border:1px solid rgba(21,94,239,.10);
+    box-shadow:var(--shadow-heavy);
+}
+
+.reminders-info{
+    padding:42px;
+    color:white;
+    background:
+        radial-gradient(circle at 20% 15%,rgba(245,185,66,.20),transparent 32%),
+        linear-gradient(145deg,var(--deep-blue),var(--dark-blue));
+}
+
+.reminders-info h3{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(1.8rem,3vw,2.5rem);
+    line-height:1.15;
+    margin-bottom:16px;
+}
+
+.reminders-info p{
+    color:rgba(255,255,255,.78);
+    line-height:1.8;
+    margin-bottom:24px;
+}
+
+.reminder-benefits{
+    display:grid;
+    gap:13px;
+}
+
+.reminder-benefit{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    color:rgba(255,255,255,.92);
+    line-height:1.55;
+    font-size:.92rem;
+}
+
+.reminder-benefit span:first-child{
+    color:var(--gold);
+    font-weight:900;
+}
+
+.reminders-form-wrap{
+    padding:42px;
+}
+
+.reminders-form{
+    display:grid;
+    gap:18px;
+}
+
+.reminder-field{
+    display:grid;
+    gap:8px;
+}
+
+.reminder-field label,
+.reminder-field legend{
+    color:var(--dark-blue);
+    font-size:.82rem;
+    font-weight:800;
+}
+
+.reminder-field input[type="text"],
+.reminder-field input[type="tel"],
+.reminder-field select{
+    width:100%;
+    border:1px solid #D9E3F0;
+    border-radius:13px;
+    padding:13px 14px;
+    font:inherit;
+    color:var(--text);
+    background:white;
+    outline:none;
+    transition:.2s;
+}
+
+.reminder-field input:focus,
+.reminder-field select:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(21,94,239,.08);
+}
+
+.reminder-options{
+    border:0;
+    padding:0;
+    margin:0;
+}
+
+.reminder-options-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:10px;
+}
+
+.reminder-check{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:12px;
+    border:1px solid #E2E8F0;
+    border-radius:13px;
+    background:#FAFCFF;
+    cursor:pointer;
+}
+
+.reminder-check input{
+    margin-top:3px;
+    accent-color:var(--blue);
+}
+
+.reminder-check span{
+    color:var(--text);
+    font-size:.88rem;
+    line-height:1.45;
+}
+
+.reminder-consent{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:14px;
+    border-radius:14px;
+    background:var(--blue-light);
+    color:var(--text);
+    font-size:.82rem;
+    line-height:1.55;
+}
+
+.reminder-consent input{
+    margin-top:3px;
+    accent-color:var(--blue);
+    flex:0 0 auto;
+}
+
+.reminder-note{
+    margin:0;
+    color:var(--muted);
+    font-size:.76rem;
+    line-height:1.6;
+}
+
+.reminder-message{
+    min-height:22px;
+    margin:0;
+    font-size:.84rem;
+    font-weight:700;
+}
+
+.reminder-message.success{
+    color:#15803D;
+}
+
+.reminder-message.error{
+    color:#B42318;
+}
+
+@media(max-width:800px){
+    .reminders-card{
+        grid-template-columns:1fr;
+    }
+
+    .reminders-info,
+    .reminders-form-wrap{
+        padding:30px 24px;
+    }
+}
+
+@media(max-width:520px){
+    .reminder-options-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =========================================================
    WEEKLY PROGRAMME
 ========================================================= */
 
@@ -1624,6 +1818,269 @@ footer{
 }
 
 /* =========================================================
+   WHATSAPP SERVICE REMINDERS
+========================================================= */
+
+function getOmegaSupabaseClient(){
+
+    if(window.omegaSupabaseClient){
+        return window.omegaSupabaseClient;
+    }
+
+    if(
+        !window.supabase ||
+        !window.OMEGA_SUPABASE_URL ||
+        !window.OMEGA_SUPABASE_ANON_KEY
+    ){
+        return null;
+    }
+
+    window.omegaSupabaseClient =
+        window.supabase.createClient(
+            window.OMEGA_SUPABASE_URL,
+            window.OMEGA_SUPABASE_ANON_KEY
+        );
+
+    return window.omegaSupabaseClient;
+
+}
+
+
+function normalizeReminderPhone(value){
+
+    let phone =
+        String(value || "")
+            .trim()
+            .replace(/[\s().-]/g, "");
+
+    if(phone.startsWith("00")){
+        phone = "+" + phone.slice(2);
+    }
+
+    if(phone.startsWith("0")){
+        phone = "+256" + phone.slice(1);
+    }
+
+    if(/^256\d+$/.test(phone)){
+        phone = "+" + phone;
+    }
+
+    if(/^\d{8,15}$/.test(phone) && !phone.startsWith("+")){
+        phone = "+" + phone;
+    }
+
+    if(!/^\+[1-9]\d{7,14}$/.test(phone)){
+        return "";
+    }
+
+    return phone;
+
+}
+
+
+async function registerServiceReminder(event){
+
+    event.preventDefault();
+
+    const form =
+        event.target;
+
+    const message =
+        document.getElementById("reminderMessage");
+
+    const submitButton =
+        document.getElementById("reminderSubmit");
+
+    const nameInput =
+        document.getElementById("reminderName");
+
+    const phoneInput =
+        document.getElementById("reminderPhone");
+
+    const consentInput =
+        document.getElementById("reminderConsent");
+
+    if(message){
+        message.textContent = "";
+        message.className = "reminder-message";
+    }
+
+    const name =
+        nameInput.value.trim();
+
+    const phone =
+        normalizeReminderPhone(phoneInput.value);
+
+    const consent =
+        consentInput.checked;
+
+    const sundayServices =
+        form.elements.sunday_services.checked;
+
+    const bibleStudy =
+        form.elements.bible_study.checked;
+
+    const prayerAltar =
+        form.elements.prayer_altar.checked;
+
+    const specialEvents =
+        form.elements.special_events.checked;
+
+    const reminderMinutes =
+        Number(form.elements.reminder_minutes.value);
+
+    if(!name){
+        showReminderMessage(
+            "Please enter your full name.",
+            "error"
+        );
+        nameInput.focus();
+        return;
+    }
+
+    if(!phone){
+        showReminderMessage(
+            "Please enter a valid WhatsApp phone number.",
+            "error"
+        );
+        phoneInput.focus();
+        return;
+    }
+
+    if(
+        !sundayServices &&
+        !bibleStudy &&
+        !prayerAltar &&
+        !specialEvents
+    ){
+        showReminderMessage(
+            "Please select at least one reminder type.",
+            "error"
+        );
+        return;
+    }
+
+    if(!consent){
+        showReminderMessage(
+            "Please confirm that you agree to receive WhatsApp reminders.",
+            "error"
+        );
+        return;
+    }
+
+    if(![60,180,1440].includes(reminderMinutes)){
+        showReminderMessage(
+            "Please select a valid reminder time.",
+            "error"
+        );
+        return;
+    }
+
+    const client =
+        getOmegaSupabaseClient();
+
+    if(!client){
+        showReminderMessage(
+            "The reminder service is temporarily unavailable. Please try again later.",
+            "error"
+        );
+        return;
+    }
+
+    if(submitButton){
+        submitButton.disabled = true;
+        submitButton.textContent = "Registering…";
+    }
+
+    try{
+
+        const {error} =
+            await client
+                .from("service_reminder_members")
+                .insert({
+                    name:name,
+                    phone:phone,
+                    consent:true,
+                    active:true,
+                    sunday_services:sundayServices,
+                    bible_study:bibleStudy,
+                    prayer_altar:prayerAltar,
+                    special_events:specialEvents,
+                    reminder_minutes:reminderMinutes
+                });
+
+        if(error){
+
+            if(
+                error.code === "23505" ||
+                /duplicate|unique/i.test(error.message || "")
+            ){
+                throw new Error(
+                    "This WhatsApp number is already registered for reminders. Please contact the church if you need to change your reminder preferences."
+                );
+            }
+
+            throw new Error(
+                error.message ||
+                "Unable to register for reminders."
+            );
+        }
+
+        form.reset();
+
+        form.elements.sunday_services.checked = true;
+        form.elements.special_events.checked = true;
+        form.elements.reminder_minutes.value = "60";
+
+        showReminderMessage(
+            "You are registered for WhatsApp service reminders.",
+            "success"
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Service reminder registration failed:",
+            error
+        );
+
+        showReminderMessage(
+            error.message ||
+            "We could not complete your registration. Please try again.",
+            "error"
+        );
+
+    }finally{
+
+        if(submitButton){
+            submitButton.disabled = false;
+            submitButton.textContent =
+                "Register for WhatsApp Reminders →";
+        }
+
+    }
+
+}
+
+
+function showReminderMessage(text,type){
+
+    const message =
+        document.getElementById("reminderMessage");
+
+    if(!message){
+        return;
+    }
+
+    message.textContent = text;
+    message.className =
+        "reminder-message " +
+        (type === "success" ? "success" : "error");
+
+}
+
+
+/* =========================================================
    TOAST
 ========================================================= */
 
@@ -1902,6 +2359,8 @@ footer{
                 onclick="closeMenu()"
             >Events</a>
 
+            <a href="#reminders" onclick="closeMenu()">Reminders</a>
+
             <a href="#programme" onclick="closeMenu()">Programme</a>
 
             <a href="#connect" onclick="closeMenu()">Connect</a>
@@ -1913,6 +2372,46 @@ footer{
     </div>
 
 </header>
+
+
+<!-- =========================================================
+     SPECIAL EVENTS
+     THIS SECTION IS COMPLETELY HIDDEN WHEN THERE IS NO
+     ACTIVE OR UPCOMING SPECIAL EVENT.
+========================================================= -->
+
+<section
+    class="special-events-section"
+    id="special-events"
+    aria-labelledby="specialEventsTitle"
+>
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <div class="eyebrow">
+                SPECIAL EVENT
+            </div>
+
+            <h2 id="specialEventsTitle">
+                What's Happening Next
+            </h2>
+
+            <p>
+                Join us for our upcoming special gathering at
+                Omega Prayer Mission.
+            </p>
+
+        </div>
+
+        <div id="specialEventContainer"></div>
+
+    </div>
+
+</section>
+
+
 
 
 <!-- =========================================================
@@ -1959,44 +2458,6 @@ footer{
 
     <div class="hero-scroll">
         Scroll to explore
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     SPECIAL EVENTS
-     THIS SECTION IS COMPLETELY HIDDEN WHEN THERE IS NO
-     ACTIVE OR UPCOMING SPECIAL EVENT.
-========================================================= -->
-
-<section
-    class="special-events-section"
-    id="special-events"
-    aria-labelledby="specialEventsTitle"
->
-
-    <div class="container">
-
-        <div class="section-title reveal">
-
-            <div class="eyebrow">
-                SPECIAL EVENT
-            </div>
-
-            <h2 id="specialEventsTitle">
-                What's Happening Next
-            </h2>
-
-            <p>
-                Join us for our upcoming special gathering at
-                Omega Prayer Mission.
-            </p>
-
-        </div>
-
-        <div id="specialEventContainer"></div>
-
     </div>
 
 </section>
@@ -2742,6 +3203,181 @@ footer{
 
 
 <!-- =========================================================
+     WHATSAPP SERVICE REMINDERS
+========================================================= -->
+
+<section class="reminders-section" id="reminders">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <div class="eyebrow">
+                WHATSAPP SERVICE REMINDERS
+            </div>
+
+            <h2>
+                Never Miss a Service Reminder
+            </h2>
+
+            <p>
+                Register your WhatsApp number and choose the church
+                services or events you would like to receive reminders for.
+            </p>
+
+        </div>
+
+        <div class="reminders-card reveal">
+
+            <div class="reminders-info">
+
+                <h3>
+                    Stay Ready. Stay Connected.
+                </h3>
+
+                <p>
+                    Receive timely WhatsApp reminders for selected Omega Prayer Mission
+                    programmes and special events. You choose what you want reminders for.
+                </p>
+
+                <div class="reminder-benefits">
+
+                    <div class="reminder-benefit">
+                        <span>✓</span>
+                        <span>Choose your preferred reminder time.</span>
+                    </div>
+
+                    <div class="reminder-benefit">
+                        <span>✓</span>
+                        <span>Select the services and events you want to follow.</span>
+                    </div>
+
+                    <div class="reminder-benefit">
+                        <span>✓</span>
+                        <span>Your number is stored securely in the church reminder system.</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="reminders-form-wrap">
+
+                <form
+                    class="reminders-form"
+                    id="serviceReminderForm"
+                    onsubmit="registerServiceReminder(event)"
+                >
+
+                    <div class="reminder-field">
+                        <label for="reminderName">Full Name</label>
+                        <input
+                            id="reminderName"
+                            name="name"
+                            type="text"
+                            required
+                            autocomplete="name"
+                            placeholder="Your full name"
+                        >
+                    </div>
+
+                    <div class="reminder-field">
+                        <label for="reminderPhone">WhatsApp Phone Number</label>
+                        <input
+                            id="reminderPhone"
+                            name="phone"
+                            type="tel"
+                            required
+                            autocomplete="tel"
+                            inputmode="tel"
+                            placeholder="e.g. +256 772 512884"
+                        >
+                    </div>
+
+                    <fieldset class="reminder-field reminder-options">
+                        <legend>What would you like reminders for?</legend>
+
+                        <div class="reminder-options-grid">
+
+                            <label class="reminder-check">
+                                <input type="checkbox" name="sunday_services" value="true" checked>
+                                <span>Sunday Services</span>
+                            </label>
+
+                            <label class="reminder-check">
+                                <input type="checkbox" name="bible_study" value="true">
+                                <span>Bible Study</span>
+                            </label>
+
+                            <label class="reminder-check">
+                                <input type="checkbox" name="prayer_altar" value="true">
+                                <span>Prayer Altar</span>
+                            </label>
+
+                            <label class="reminder-check">
+                                <input type="checkbox" name="special_events" value="true" checked>
+                                <span>Special Events</span>
+                            </label>
+
+                        </div>
+                    </fieldset>
+
+                    <div class="reminder-field">
+                        <label for="reminderMinutes">Remind me</label>
+                        <select id="reminderMinutes" name="reminder_minutes" required>
+                            <option value="60">1 hour before</option>
+                            <option value="180">3 hours before</option>
+                            <option value="1440">1 day before</option>
+                        </select>
+                    </div>
+
+                    <label class="reminder-consent">
+                        <input
+                            id="reminderConsent"
+                            name="consent"
+                            type="checkbox"
+                            value="true"
+                            required
+                        >
+                        <span>
+                            I agree to receive WhatsApp service and special-event reminders
+                            from Omega Prayer Mission Church on this number.
+                        </span>
+                    </label>
+
+                    <p class="reminder-note">
+                        You can request to stop reminders by contacting the church.
+                        WhatsApp messages will be sent only after the church's compliant
+                        WhatsApp messaging service is connected.
+                    </p>
+
+                    <p
+                        class="reminder-message"
+                        id="reminderMessage"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+                    <button
+                        class="btn blue form-submit"
+                        id="reminderSubmit"
+                        type="submit"
+                    >
+                        Register for WhatsApp Reminders →
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
      CONNECT
 ========================================================= -->
 
@@ -3128,6 +3764,8 @@ footer{
                     >
                         Special Events
                     </a>
+
+                    <a href="#reminders">WhatsApp Reminders</a>
 
                     <a href="#programme">Programme</a>
 
